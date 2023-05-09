@@ -1,0 +1,3 @@
+.Module One: Overview & Setup
+* xref:accessing-argocd.adoc[Accessing the Cluster GitOps Dashboard]
+* xref:first-steps-with-argocd.adoc[First Steps with GitOps using Argo CD]

@@ -26,8 +26,7 @@ https://www.redhat.com/en/topics/devops/what-is-gitops[GitOps] is a declarative 
 // From https://docs.openshift.com/container-platform/4.12/cicd/gitops/understanding-openshift-gitops.html
 https://docs.openshift.com/container-platform/4.12/cicd/gitops/understanding-openshift-gitops.html[Red Hat OpenShift GitOps] is built on https://argo-cd.readthedocs.io/en/stable/[Argo CD]. Argo CD is an open-source tool that enables the continuous delivery of applications. Put simply, when using Argo CD you store and manage your configurations using Git repositories and the resources in those repositories are synchronised to your OpenShift/Kubernetes clusters by Argo CD.
 
-[.text-center]
-image:images/ex2.openshift-argo.png[ArgoCD Overview]
+image::ex1-openshift-argo.png[ArgoCD Overview]
 
 Red Hat OpenShift GitOps implements Argo CD as a controller so that it continuously monitors application definitions and configurations defined in a Git repository. Then, Argo CD compares the specified state of these configurations with their live state on the cluster. Argo CD reports any configurations that deviate from their specified state. These reports allow administrators to automatically or manually resync configurations to the defined state. Therefore, Argo CD enables you to deliver global custom resources, like the resources that are used to configure OpenShift clusters.
 

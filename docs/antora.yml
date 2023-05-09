@@ -3,4 +3,5 @@ title: Summit 2023 - GitOps Workshop Guide
 version: main
 nav:
   - modules/m1-overview/nav.adoc
+  - modules/m2-argocd-introduction/nav.adoc
 start_page: m1-overview:intro.adoc
