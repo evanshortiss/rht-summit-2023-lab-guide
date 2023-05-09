@@ -1,5 +1,0 @@
-# Red Hat Summit 2023: Vote App Lab Overview - Introduction
-
-## About this lab
-
-Hello world!

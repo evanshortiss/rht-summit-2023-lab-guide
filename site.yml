@@ -3,12 +3,12 @@ runtime:
 
 site:
   title: Summit 2023 - GitOps Workshop Guide
-  start_page: summit-2023-gitops-workshop-guide:m1:intro.adoc
+  start_page: summit-2023-gitops-workshop-guide:m1-overview:intro.adoc
 
 content:
   sources:
     - url: .
-      start_path: docs
+      start_path: docs/
 
 asciidoc:
   attributes:
