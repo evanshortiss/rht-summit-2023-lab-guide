@@ -2,6 +2,8 @@
 FROM docker.io/antora/antora:3.1.2 as builder
 
 ADD . /antora/
+RUN pwd
+RUN ls -al
 
 RUN antora generate --stacktrace site.yml
 
