@@ -4,7 +4,7 @@
 
 namespace: guides
 
-image: quay.io/evanshortiss/rht-summit-2023-lab-guide:latest
+image: quay.io/evanshortiss/summit-2023-lab-guide:latest
 
 replicaCount: 1
 

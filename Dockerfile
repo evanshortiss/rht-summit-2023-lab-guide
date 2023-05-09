@@ -2,13 +2,11 @@
 FROM docker.io/antora/antora:3.1.2 as builder
 
 ADD . /antora/
-RUN pwd
-RUN ls -al
 
 RUN antora generate --stacktrace site.yml
 
 ### RUNTIME IMAGE ###
-FROM registry.access.redhat.com/ubi8/httpd-24@sha256:7a46fd21bbaf590960b39161c968298a32b49f7cb7eb3a840e211e13a16e313e 
+FROM registry.access.redhat.com/ubi8/httpd-24:1-256.1680797936
 
 ARG CREATED_AT=none
 ARG GITHUB_SHA=none
@@ -26,4 +24,4 @@ LABEL org.opencontainers.image.vendor="redhat"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.version="1.0.0"
 
-COPY --from=builder /antora/site/ /var/www/html/
+COPY --from=builder --chown=1001:1001 /antora/site/ /var/www/html/
