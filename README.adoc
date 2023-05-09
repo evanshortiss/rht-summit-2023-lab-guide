@@ -1,0 +1,19 @@
+# Summit 2023 - GitOps Workshop Guide
+
+## Local development
+
+[source,bash]
+----
+podman build -t localhost/rht-summit-2023-lab-guide .
+podman run --rm --name guides -d -p 4000:8080 localhost/rht-summit-2023-lab-guide
+----
+
+## Deploy to OpenShift
+
+[source,bash]
+----
+oc new-app https://github.com/blues-man/rht-summit-2023-lab-guide.git --strategy=docker
+ oc create route edge rht-summit-2023-lab-guide --service=rht-summit-2023-lab-guide
+# To rebuild after changes pushed to git
+oc start-build rht-summit-2023-lab-guide --follow
+----

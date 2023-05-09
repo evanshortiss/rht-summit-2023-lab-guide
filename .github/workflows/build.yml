@@ -1,0 +1,47 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+    paths-ignore:
+      - "README.md"
+
+permissions:
+  packages: write
+  contents: write
+
+concurrency:
+  group: build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: set datetime
+        run: |
+          echo "datetime=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
+      - name: build image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: rht-summit-2023-lab-guide
+          tags: latest ${{ github.ref_name }}
+          dockerfiles: |
+            ./Dockerfile
+          build-args: |
+            CREATED_AT=${{ env.datetime }}
+            GITHUB_SHA=${{ github.sha }}
+      - name: push image to quay.io
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: quay.io/evanshortiss
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}

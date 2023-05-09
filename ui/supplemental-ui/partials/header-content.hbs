@@ -1,0 +1,78 @@
+<header class="header">
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('USERID');
+      const subDomain = urlParams.get('SUBDOMAIN');
+      const apiUrl = urlParams.get('APIURL');
+      if (userId) {
+        showUserId( userId );
+      }
+      else {
+        showUserIdForm();
+      }
+    } );
+
+
+    function showUserId( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "none";
+      document.getElementById('navbar-form-filled').style.display = "flex";
+      document.getElementById('username').textContent = userId;
+      document.getElementById('subDomain').value = subDomain;
+      document.getElementById('apiUrl').value = apiUrl;
+
+    }
+
+    function showUserIdForm( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "flex";
+      document.getElementById('navbar-form-filled').style.display = "none";
+    }
+
+    function goWithUserId() {
+      elUserIdInput = document.getElementById('userId');
+      elSubDomainInput = document.getElementById('subDomain');
+      elapiUrlInput = document.getElementById('apiUrl');
+
+      window.location.search = ('&USERID=' + elUserIdInput.value + '&SUBDOMAIN=' + elSubDomainInput.value + '&APIURL=' + elapiUrlInput.value);
+    }
+
+  </script>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank"><img
+          src="{{uiRootPath}}/img/Logo-Red_Hat-OpenShift_4-A-Reverse-RGB.png" height="40px" alt="Red Hat OpenShift"></a>
+      <a class="navbar-item" href="{{{or site.url (or siteRootUrl siteRootPath)}}}" style="color: white;"><h3>{{site.title}}</h3></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item" id="navbar-form-empty">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i style="color: orange;"
+              class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+
+          <form action="javascript:void(0);" onsubmit="goWithUserId();">
+            <div class="navbar-item" id="navbar-form-project-filled" style="display: none;">
+              <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+            </div>
+            <input size="40" id="userId" type="text" placeholder="Enter USER ID">
+            <input type="hidden" id="subDomain" name="subDomain" value="">
+            <input type="hidden" id="apiUrl" name="apiUrl" value="">
+          </form>
+        </div>
+
+        <div class="navbar-item" id="navbar-form-filled" style="display: none;">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+          <span class="navbar-text" id="username"></span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i onclick="recycle();" style="color: green;" class="fa fa-recycle" aria-hidden="true"></i></span>
+        </div>
+
+    </div>
+  </nav>
+</header>
