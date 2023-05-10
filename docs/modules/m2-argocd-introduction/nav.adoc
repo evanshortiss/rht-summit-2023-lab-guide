@@ -1,3 +1,4 @@
-.Module One: Overview & Setup
+.Module Two:  GitOps First Steps
 * xref:accessing-argocd.adoc[Accessing the Cluster GitOps Dashboard]
 * xref:first-steps-with-argocd.adoc[First Steps with GitOps using Argo CD]
+* xref:self-healing.adoc[Argo CD Self-Healing Capabilities]

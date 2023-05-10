@@ -1,6 +1,6 @@
 # First Steps with GitOps using Argo CD
 
-⏱️ _Estimated Time: 10 Minutes_
+⏱️ _Estimated Time: 5 Minutes_
 
 👩‍💻 _Role: Cluster Administrator_
 

@@ -1,0 +1,5 @@
+.Module Three: Managing Namespaces & RBAC
+* xref:kustomize.adoc[Using Kustomize for Templating YAML]
+* xref:create-applications-using-kubectl.adoc[Create Applications using the CLI]
+* xref:granting-service-account-permission.adoc[Argo CD Service Account Permissions]
+* xref:rbac-for-namespaces.adoc[RBAC for Namespaces]

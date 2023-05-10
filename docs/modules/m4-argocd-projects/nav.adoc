@@ -1,0 +1,4 @@
+.Module Four: Argo CD Projects & App of Apps
+* xref:rbac-demo.adoc[Exploring Projects & RBAC]
+* xref:app-of-apps.adoc[The App of Apps]
+* xref:verify-rbac.adoc[Verify & Understand your Work]
