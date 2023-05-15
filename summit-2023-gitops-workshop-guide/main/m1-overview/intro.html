@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Red Hat Summit 2023: GitOps Workshop Overview :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="next" href="setup.html">
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('USERID');
+      const subDomain = urlParams.get('SUBDOMAIN');
+      const apiUrl = urlParams.get('APIURL');
+      if (userId) {
+        showUserId( userId );
+      }
+      else {
+        showUserIdForm();
+      }
+    } );
+
+
+    function showUserId( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "none";
+      document.getElementById('navbar-form-filled').style.display = "flex";
+      document.getElementById('username').textContent = userId;
+      document.getElementById('subDomain').value = subDomain;
+      document.getElementById('apiUrl').value = apiUrl;
+
+    }
+
+    function showUserIdForm( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "flex";
+      document.getElementById('navbar-form-filled').style.display = "none";
+    }
+
+    function goWithUserId() {
+      elUserIdInput = document.getElementById('userId');
+      elSubDomainInput = document.getElementById('subDomain');
+      elapiUrlInput = document.getElementById('apiUrl');
+
+      window.location.search = ('&USERID=' + elUserIdInput.value + '&SUBDOMAIN=' + elSubDomainInput.value + '&APIURL=' + elapiUrlInput.value);
+    }
+
+  </script>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank"><img
+          src="../../../_/img/Logo-Red_Hat-OpenShift_4-A-Reverse-RGB.png" height="40px" alt="Red Hat OpenShift"></a>
+      <a class="navbar-item" href="../../.." style="color: white;"><h3>Summit 2023 - GitOps Workshop Guide</h3></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item" id="navbar-form-empty">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i style="color: orange;"
+              class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+
+          <form action="javascript:void(0);" onsubmit="goWithUserId();">
+            <div class="navbar-item" id="navbar-form-project-filled" style="display: none;">
+              <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+            </div>
+            <input size="40" id="userId" type="text" placeholder="Enter GitHub Org/Username">
+            <input type="hidden" id="subDomain" name="subDomain" value="">
+            <input type="hidden" id="apiUrl" name="apiUrl" value="">
+          </form>
+        </div>
+
+        <div class="navbar-item" id="navbar-form-filled" style="display: none;">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+          <span class="navbar-text" id="username"></span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i onclick="recycle();" style="color: green;" class="fa fa-recycle" aria-hidden="true"></i></span>
+        </div>
+
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="summit-2023-gitops-workshop-guide" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module One: Overview &amp; Setup</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="intro.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="setup.html">Setup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Two:  GitOps First Steps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/accessing-argocd.html">Accessing the Cluster GitOps Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/first-steps-with-argocd.html">First Steps with GitOps using Argo CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/self-healing.html">Argo CD Self-Healing Capabilities</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Three: Managing Namespaces &amp; RBAC</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/kustomize.html">Using Kustomize for Templating YAML</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/create-applications-using-kubectl.html">Create Applications using the CLI</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/rbac-for-namespaces.html">RBAC for Namespaces</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Four: Argo CD Projects &amp; App of Apps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/rbac-demo.html">Exploring Projects &amp; RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/app-of-apps.html">The App of Apps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/verify-rbac.html">Verify &amp; Understand your Work</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="intro.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="intro.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
+    <li>Module One: Overview &amp; Setup</li>
+    <li><a href="intro.html">Introduction</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m1-overview/pages/intro.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Red Hat Summit 2023: GitOps Workshop Overview</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Welcome to Red Hat Summit 2023, and the <strong>Using GitOps to Control and Customize your Red Hat OpenShift Clusters and Applications</strong> workshop!</p>
+</div>
+<div class="paragraph">
+<p>This workshop provides you with your own <strong>Red Hat OpenShift</strong> cluster, and set of exercises that teach you how to use <strong>Red Hat OpenShift GitOps</strong> to manage aspects of your <strong>Red Hat OpenShift</strong> cluster and containerised applications.</p>
+</div>
+<div class="paragraph">
+<p>By the end of this workshop you will know how to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Access the Red Hat OpenShift GitOps (Argo CD) Dashboard on a Red Hat OpenShift cluster.</p>
+</li>
+<li>
+<p>Customise the OpenShift Web Console using GitOps.</p>
+</li>
+<li>
+<p>Manage Namespaces, Resource Quotas, and RBAC using GitOps.</p>
+</li>
+<li>
+<p>Keep configurations in a desired state using GitOps.</p>
+</li>
+<li>
+<p>Enable teams to leverage GitOps to deploy their applications.</p>
+</li>
+<li>
+<p>Continuously Deliver a containerised application using GitOps.</p>
+</li>
+<li>
+<p>(Bonus) Use the the "App of Apps" pattern to bootstrap a cluster using GitOps.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_openshift"><a class="anchor" href="#_what_is_openshift"></a>What is OpenShift?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://www.redhat.com/en/technologies/cloud-computing/openshift">Red Hat OpenShift</a> brings together tested and trusted services to reduce the friction of developing, modernizing, deploying, running, and managing applications. Built on Kubernetes, it delivers a consistent experience across public cloud, on-premise, hybrid cloud, or edge architecture.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_gitops"><a class="anchor" href="#_what_is_gitops"></a>What is GitOps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://www.redhat.com/en/topics/devops/what-is-gitops">GitOps</a> is a declarative way to implement continuous deployment for cloud native applications. You can use GitOps to create repeatable processes for managing OpenShift clusters and applications across multi-cluster Kubernetes environments. GitOps handles and automates complex deployments at a fast pace, saving time during deployment and release cycles.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_red_openshift_gitops"><a class="anchor" href="#_what_is_red_openshift_gitops"></a>What is Red OpenShift GitOps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://docs.openshift.com/container-platform/4.12/cicd/gitops/understanding-openshift-gitops.html">Red Hat OpenShift GitOps</a> is built on <a href="https://argo-cd.readthedocs.io/en/stable/">Argo CD</a>. Argo CD is an open-source tool that enables the continuous delivery of applications. Put simply, when using Argo CD you store and manage your configurations using Git repositories and the resources in those repositories are synchronised to your OpenShift/Kubernetes clusters by Argo CD.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex1-openshift-argo.png" alt="ArgoCD Overview">
+</div>
+</div>
+<div class="paragraph">
+<p>Red Hat OpenShift GitOps implements Argo CD as a controller so that it continuously monitors application definitions and configurations defined in a Git repository. Then, Argo CD compares the specified state of these configurations with their live state on the cluster. Argo CD reports any configurations that deviate from their specified state. These reports allow administrators to automatically or manually resync configurations to the defined state. Therefore, Argo CD enables you to deliver global custom resources, like the resources that are used to configure OpenShift clusters.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="next"><a href="setup.html" class="query-params-link">Setup</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<script src="../../../_/js/vendor/clipboard.js"></script>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

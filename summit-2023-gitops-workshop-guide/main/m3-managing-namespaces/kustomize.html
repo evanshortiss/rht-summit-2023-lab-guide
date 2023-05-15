@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Managing Namespaces using Kustomize and GitOps :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="prev" href="../m2-argocd-introduction/self-healing.html">
+    <link rel="next" href="create-applications-using-kubectl.html">
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('USERID');
+      const subDomain = urlParams.get('SUBDOMAIN');
+      const apiUrl = urlParams.get('APIURL');
+      if (userId) {
+        showUserId( userId );
+      }
+      else {
+        showUserIdForm();
+      }
+    } );
+
+
+    function showUserId( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "none";
+      document.getElementById('navbar-form-filled').style.display = "flex";
+      document.getElementById('username').textContent = userId;
+      document.getElementById('subDomain').value = subDomain;
+      document.getElementById('apiUrl').value = apiUrl;
+
+    }
+
+    function showUserIdForm( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "flex";
+      document.getElementById('navbar-form-filled').style.display = "none";
+    }
+
+    function goWithUserId() {
+      elUserIdInput = document.getElementById('userId');
+      elSubDomainInput = document.getElementById('subDomain');
+      elapiUrlInput = document.getElementById('apiUrl');
+
+      window.location.search = ('&USERID=' + elUserIdInput.value + '&SUBDOMAIN=' + elSubDomainInput.value + '&APIURL=' + elapiUrlInput.value);
+    }
+
+  </script>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank"><img
+          src="../../../_/img/Logo-Red_Hat-OpenShift_4-A-Reverse-RGB.png" height="40px" alt="Red Hat OpenShift"></a>
+      <a class="navbar-item" href="../../.." style="color: white;"><h3>Summit 2023 - GitOps Workshop Guide</h3></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item" id="navbar-form-empty">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i style="color: orange;"
+              class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+
+          <form action="javascript:void(0);" onsubmit="goWithUserId();">
+            <div class="navbar-item" id="navbar-form-project-filled" style="display: none;">
+              <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+            </div>
+            <input size="40" id="userId" type="text" placeholder="Enter GitHub Org/Username">
+            <input type="hidden" id="subDomain" name="subDomain" value="">
+            <input type="hidden" id="apiUrl" name="apiUrl" value="">
+          </form>
+        </div>
+
+        <div class="navbar-item" id="navbar-form-filled" style="display: none;">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+          <span class="navbar-text" id="username"></span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i onclick="recycle();" style="color: green;" class="fa fa-recycle" aria-hidden="true"></i></span>
+        </div>
+
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="summit-2023-gitops-workshop-guide" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../m1-overview/intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module One: Overview &amp; Setup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/intro.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/setup.html">Setup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Two:  GitOps First Steps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/accessing-argocd.html">Accessing the Cluster GitOps Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/first-steps-with-argocd.html">First Steps with GitOps using Argo CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/self-healing.html">Argo CD Self-Healing Capabilities</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Three: Managing Namespaces &amp; RBAC</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="kustomize.html">Using Kustomize for Templating YAML</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="create-applications-using-kubectl.html">Create Applications using the CLI</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="rbac-for-namespaces.html">RBAC for Namespaces</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Four: Argo CD Projects &amp; App of Apps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/rbac-demo.html">Exploring Projects &amp; RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/app-of-apps.html">The App of Apps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/verify-rbac.html">Verify &amp; Understand your Work</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../m1-overview/intro.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../m1-overview/intro.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../m1-overview/intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
+    <li>Module Three: Managing Namespaces &amp; RBAC</li>
+    <li><a href="kustomize.html">Using Kustomize for Templating YAML</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m3-managing-namespaces/pages/kustomize.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Managing Namespaces using Kustomize and GitOps</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>⏱️ <em>Estimated Time: 10 Minutes</em></p>
+</div>
+<div class="paragraph">
+<p>👨‍💻 <em>Role: Cluster Administrator</em></p>
+</div>
+<div class="paragraph">
+<p><a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/">Namespaces</a> can be used to provide isolation, and divide resources between different teams within a Kubernetes cluster. For example, two teams could each be given a Namespace within a cluster to deploy their applications. Each Namespace can have a set amount of CPU and memory allocated to it depending on the requirements of the software each team is building and deploying. The members of each team might only have access to their own Namespace and no additional namespaces.</p>
+</div>
+<div class="paragraph">
+<p>In this section, you&#8217;ll create two Namespaces based on a shared template. Of course you&#8217;ll want each Namespace to have a unique name, and custom <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/">ResourceQuotas</a> and <a href="https://kubernetes.io/docs/concepts/policy/limit-range/">LimitRanges</a> depending on the workloads being deployed within them. You&#8217;ll learn how to extend and patch YAML files using <a href="https://kustomize.io/">Kustomise</a>. Argo CD supports both Kustomize and Helm for scenarios where templating YAML is necessary.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.argo-kustomize-example.png" alt="ex4.argo kustomize example">
+</div>
+</div>
+<div class="paragraph">
+<p>Another use-case is patching resources based on the target environment. This example from the Kustomize website shows how a Deployment&#8217;s replica count can be scaled out depending on the target environment.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.kustomize.png" alt="ex4.kustomize">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examine_the_base_resources"><a class="anchor" href="#_examine_the_base_resources"></a>Examine the Base Resources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ll be using Kustomize to build out your Namespaces based on a shared template. The repository you made a copy of has included the template files to save some time.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to your copy of the GitHub repository and open the <em>managed-namespaces/base</em> folder.</p>
+</li>
+<li>
+<p>Take a look at the <em>namespace.yaml</em> and <em>resource-quota.yaml</em> files. These are resources that can be applied to a Kubernetes/OpenShift cluster.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>argocd.argoproj.io/sync-wave</code> annotations on the YAML resources control the order in which they will be applied by Argo CD. This concept is known as <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/">Sync Waves</a>. Utilising Sync Waves is important, since the Namespace needs to exist before other resources can be applied within it.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Open the <em>managed-namespaces/base/kustomization.yaml</em> file. This file references the <em>namespace.yaml</em> and <em>resource-quota.yaml</em> files.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>These files are referred to as <strong>bases</strong> or the <strong>base</strong> files to be used by Kustomize. In the next steps you&#8217;ll define <strong>overlays</strong> that extend/modify the base configuration(s).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_define_a_namespace_using_overlays"><a class="anchor" href="#_define_a_namespace_using_overlays"></a>Define a Namespace using Overlays</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A Namespace is already defined in the <em>managed-namespaces/overlays/project-memes-dev</em> folder. You&#8217;ll use this as a template to make a second Namespace:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to your copy of the GitHub repository.</p>
+</li>
+<li>
+<p>Press the period/dot key to open GitHub&#8217;s web-based text editor.</p>
+</li>
+<li>
+<p>Create a <strong>folder</strong> named <code>project-memes-prod</code> inside the <em>managed-namespaces/overlays/</em> folder. This folder will contain your Namespace configuration.</p>
+</li>
+<li>
+<p>Create a <strong>file</strong> named <code>kustomization.yaml</code> inside your <em>managed-namespaces/overlays/project-memes-prod</em> folder.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.github-ide.png" alt="ex4.github ide">
+</div>
+</div>
+</li>
+<li>
+<p>Place the following content in <em>managed-namespaces/overlays/project-memes-prod/kustomization.yaml</em>. This will use the base files, but replace the default Namespace value and double the ResourceQuota values:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: project-memes-prod
+bases:
+- ../../base
+
+# Patches are edits to make to a set of one or more targets
+patches:
+# This patch targets the Namespace resource and changes the
+# value of metadata.name to "project-memes-prod"
+- target:
+    kind: Namespace
+    name: for-replacement
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: project-memes-prod
+# This patch targets the resource quota. It doubles the available
+# resources compared to the default values
+- target:
+    kind: ResourceQuota
+    name: resource-quota-memory-cpu
+  patch: |-
+    - op: replace
+      path: /spec/hard/cpu
+      value: 1
+    - op: replace
+      path: /spec/hard/memory
+      value: 1Gi</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Edit the <code>kustomization.yaml</code> file in the <em>managed-namespaces/overlays/</em> folder to reference your new Namespace configuration:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bases:
+- ./project-memes-dev
+- ./project-memes-prod</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The end result will be a new <em>managed-namespaces/overlays/project-memes-prod/kustomization.yaml</em> file, and the existing <em>managed-namespaces/overlays/kustomize.yaml</em> is updated to reference the new <em>project-memes-prod/</em> folder as shown:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.github-ide-namespace-files.png" alt="ex4.github ide namespace files">
+</div>
+</div>
+</li>
+<li>
+<p>Edit the <code>spec.source.repoURL</code> in <em>etc/managed-namesapces.application.yaml</em> to point to your copy&#8217;s URL.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.github-ide-application-cr.png" alt="ex4.github ide application cr">
+</div>
+</div>
+</li>
+<li>
+<p>Use the <strong>Source Control</strong> section of the GitHub editor to enter a commit message, then press <strong>Commit &amp; Push</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.github-ide-commit.png" alt="ex4.github ide commit">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You now have two Namespaces ready to be synchronised and managed by Argo CD on your OpenShift cluster. You also have the Application CR required by Argo CD.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../m2-argocd-introduction/self-healing.html" class="query-params-link">Argo CD Self-Healing Capabilities</a></span>
+  <span class="next"><a href="create-applications-using-kubectl.html" class="query-params-link">Create Applications using the CLI</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<script src="../../../_/js/vendor/clipboard.js"></script>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

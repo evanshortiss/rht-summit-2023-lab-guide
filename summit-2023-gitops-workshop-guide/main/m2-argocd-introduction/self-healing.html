@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Argo CD Self-Healing Capabilities :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="prev" href="first-steps-with-argocd.html">
+    <link rel="next" href="../m3-managing-namespaces/kustomize.html">
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('USERID');
+      const subDomain = urlParams.get('SUBDOMAIN');
+      const apiUrl = urlParams.get('APIURL');
+      if (userId) {
+        showUserId( userId );
+      }
+      else {
+        showUserIdForm();
+      }
+    } );
+
+
+    function showUserId( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "none";
+      document.getElementById('navbar-form-filled').style.display = "flex";
+      document.getElementById('username').textContent = userId;
+      document.getElementById('subDomain').value = subDomain;
+      document.getElementById('apiUrl').value = apiUrl;
+
+    }
+
+    function showUserIdForm( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "flex";
+      document.getElementById('navbar-form-filled').style.display = "none";
+    }
+
+    function goWithUserId() {
+      elUserIdInput = document.getElementById('userId');
+      elSubDomainInput = document.getElementById('subDomain');
+      elapiUrlInput = document.getElementById('apiUrl');
+
+      window.location.search = ('&USERID=' + elUserIdInput.value + '&SUBDOMAIN=' + elSubDomainInput.value + '&APIURL=' + elapiUrlInput.value);
+    }
+
+  </script>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank"><img
+          src="../../../_/img/Logo-Red_Hat-OpenShift_4-A-Reverse-RGB.png" height="40px" alt="Red Hat OpenShift"></a>
+      <a class="navbar-item" href="../../.." style="color: white;"><h3>Summit 2023 - GitOps Workshop Guide</h3></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item" id="navbar-form-empty">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i style="color: orange;"
+              class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+
+          <form action="javascript:void(0);" onsubmit="goWithUserId();">
+            <div class="navbar-item" id="navbar-form-project-filled" style="display: none;">
+              <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+            </div>
+            <input size="40" id="userId" type="text" placeholder="Enter GitHub Org/Username">
+            <input type="hidden" id="subDomain" name="subDomain" value="">
+            <input type="hidden" id="apiUrl" name="apiUrl" value="">
+          </form>
+        </div>
+
+        <div class="navbar-item" id="navbar-form-filled" style="display: none;">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+          <span class="navbar-text" id="username"></span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i onclick="recycle();" style="color: green;" class="fa fa-recycle" aria-hidden="true"></i></span>
+        </div>
+
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="summit-2023-gitops-workshop-guide" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../m1-overview/intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module One: Overview &amp; Setup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/intro.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/setup.html">Setup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Two:  GitOps First Steps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="accessing-argocd.html">Accessing the Cluster GitOps Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-steps-with-argocd.html">First Steps with GitOps using Argo CD</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="self-healing.html">Argo CD Self-Healing Capabilities</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Three: Managing Namespaces &amp; RBAC</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/kustomize.html">Using Kustomize for Templating YAML</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/create-applications-using-kubectl.html">Create Applications using the CLI</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/rbac-for-namespaces.html">RBAC for Namespaces</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Four: Argo CD Projects &amp; App of Apps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/rbac-demo.html">Exploring Projects &amp; RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/app-of-apps.html">The App of Apps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/verify-rbac.html">Verify &amp; Understand your Work</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../m1-overview/intro.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../m1-overview/intro.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../m1-overview/intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
+    <li>Module Two:  GitOps First Steps</li>
+    <li><a href="self-healing.html">Argo CD Self-Healing Capabilities</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m2-argocd-introduction/pages/self-healing.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Argo CD Self-Healing Capabilities</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>⏱️ <em>Estimated Time: 5 Minutes</em></p>
+</div>
+<div class="paragraph">
+<p>👩‍💻 <em>Role: Cluster Administrator and/or Developers</em></p>
+</div>
+<div class="paragraph">
+<p>Argo CD is capable healing resources when it detects configuration drift. For example, when a resource that should be present is missing it will be recreated by Argo CD. Another example is when a field such as <code>spec.replicas</code> on a Deployment has a value mismatch between what&#8217;s stored in the Git repository and the actual value set on the resource in the cluster.</p>
+</div>
+<div class="paragraph">
+<p>If your Argo CD Application has the <code>selfHeal</code> property set to <code>true</code> then it will automatically detect and correct configuration drift for the resources it is managing. That means if someone accidentally runs a <code>kubectl</code> command against the wrong resource Argo CD will have your back and will restore the resource to the correct configuration!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_observing_argo_cd_self_healing"><a class="anchor" href="#_observing_argo_cd_self_healing"></a>Observing Argo CD Self-Healing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You currently have a Console Notification being managed by Argo CD. The <code>selfHeal: true</code> configuration is defined on the Application CR responsible for managing it. Go ahead an see what happens when you edit/delete the Console Notification resource using the <code>oc</code> or <code>kubectl</code> CLI:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login to the OpenShift Web Console as the <code>opentlc-mgr</code> user.</p>
+</li>
+<li>
+<p>Open the OpenShift Web Terminal using the <strong>&gt;_</strong> icon.</p>
+</li>
+<li>
+<p>Run the following command to list existing Console Notification resources:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get consolenotification</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the following command to delete the <code>welcome-banner</code> Console Notification:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete consolenotification welcome-banner</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Depending on your timing the Console Notification will briefly disappear, and then immediately reappear.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The reason that the Console Notification reappears is because the <strong>console-customisations</strong> Application in Argo CD has the <code>selfHeal</code> property set to <code>true</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>List existing Console Notification resources again, and pay attention to the <strong>AGE</strong> column:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get consolenotification</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Did you notice that the age of the Console Notification has changed?</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex5.banner-ages.png" alt="ex5.banner ages">
+</div>
+</div>
+<div class="paragraph">
+<p>When you deleted the Console Notification it was automatically recreated by Argo CD. This is reflected through the new value displayed in the <strong>AGE</strong> column.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_toggling_the_self_healing_behaviour"><a class="anchor" href="#_toggling_the_self_healing_behaviour"></a>Toggling the Self-Healing Behaviour</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It&#8217;s possible to toggle the self-healing behaviour at any time, so long as you have the necessary permissions and access to the Argo CD dashboard/resources:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Argo CD dashboard and log in as the <code>admin</code> user. If you&#8217;ve lost the password, you can return to the <strong>Accessing the Cluster GitOps Dashboard</strong> section to obtain it.</p>
+</li>
+<li>
+<p>Select the <strong>console-customisations</strong> Application.</p>
+</li>
+<li>
+<p>Click the <strong>App Details</strong> button in the header. An overlay will appear.</p>
+</li>
+<li>
+<p>Scroll down and click the <strong>Disable</strong> button next to <strong>Self Heal</strong>. Click the <strong>OK</strong> button when asked to confirm the change.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex5-argocd-disable-healing.png" alt="ex5 argocd disable healing">
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>X</strong> icon in the top-right to close the modal window.</p>
+</li>
+<li>
+<p>Return to the OpenShift Web Console, and open the OpenShift Web Terminal.</p>
+</li>
+<li>
+<p>Return to the Web Terminal and run the following command to delete the ConsoleNotification:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete consolenotification welcome-banner</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The ConsoleNotification will disappear, and won&#8217;t reappear this time. The Argo CD dashboard should be reporting that the <strong>console-customisations</strong> Application is "OutOfSync".</p>
+</div>
+<div class="paragraph">
+<p>Use the <strong>Sync</strong> button to manually synchronise the Application and restore the banner. Consider re-enabling the self-healing configuration for peace of mind!</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="first-steps-with-argocd.html" class="query-params-link">First Steps with GitOps using Argo CD</a></span>
+  <span class="next"><a href="../m3-managing-namespaces/kustomize.html" class="query-params-link">Using Kustomize for Templating YAML</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<script src="../../../_/js/vendor/clipboard.js"></script>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

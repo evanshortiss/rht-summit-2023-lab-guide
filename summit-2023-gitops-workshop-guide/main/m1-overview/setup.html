@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Getting Setup for Success :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="prev" href="intro.html">
+    <link rel="next" href="../m2-argocd-introduction/accessing-argocd.html">
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('USERID');
+      const subDomain = urlParams.get('SUBDOMAIN');
+      const apiUrl = urlParams.get('APIURL');
+      if (userId) {
+        showUserId( userId );
+      }
+      else {
+        showUserIdForm();
+      }
+    } );
+
+
+    function showUserId( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "none";
+      document.getElementById('navbar-form-filled').style.display = "flex";
+      document.getElementById('username').textContent = userId;
+      document.getElementById('subDomain').value = subDomain;
+      document.getElementById('apiUrl').value = apiUrl;
+
+    }
+
+    function showUserIdForm( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "flex";
+      document.getElementById('navbar-form-filled').style.display = "none";
+    }
+
+    function goWithUserId() {
+      elUserIdInput = document.getElementById('userId');
+      elSubDomainInput = document.getElementById('subDomain');
+      elapiUrlInput = document.getElementById('apiUrl');
+
+      window.location.search = ('&USERID=' + elUserIdInput.value + '&SUBDOMAIN=' + elSubDomainInput.value + '&APIURL=' + elapiUrlInput.value);
+    }
+
+  </script>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank"><img
+          src="../../../_/img/Logo-Red_Hat-OpenShift_4-A-Reverse-RGB.png" height="40px" alt="Red Hat OpenShift"></a>
+      <a class="navbar-item" href="../../.." style="color: white;"><h3>Summit 2023 - GitOps Workshop Guide</h3></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item" id="navbar-form-empty">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i style="color: orange;"
+              class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+
+          <form action="javascript:void(0);" onsubmit="goWithUserId();">
+            <div class="navbar-item" id="navbar-form-project-filled" style="display: none;">
+              <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+            </div>
+            <input size="40" id="userId" type="text" placeholder="Enter GitHub Org/Username">
+            <input type="hidden" id="subDomain" name="subDomain" value="">
+            <input type="hidden" id="apiUrl" name="apiUrl" value="">
+          </form>
+        </div>
+
+        <div class="navbar-item" id="navbar-form-filled" style="display: none;">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+          <span class="navbar-text" id="username"></span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i onclick="recycle();" style="color: green;" class="fa fa-recycle" aria-hidden="true"></i></span>
+        </div>
+
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="summit-2023-gitops-workshop-guide" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module One: Overview &amp; Setup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="intro.html">Introduction</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="setup.html">Setup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Two:  GitOps First Steps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/accessing-argocd.html">Accessing the Cluster GitOps Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/first-steps-with-argocd.html">First Steps with GitOps using Argo CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/self-healing.html">Argo CD Self-Healing Capabilities</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Three: Managing Namespaces &amp; RBAC</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/kustomize.html">Using Kustomize for Templating YAML</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/create-applications-using-kubectl.html">Create Applications using the CLI</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/rbac-for-namespaces.html">RBAC for Namespaces</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Four: Argo CD Projects &amp; App of Apps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/rbac-demo.html">Exploring Projects &amp; RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/app-of-apps.html">The App of Apps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/verify-rbac.html">Verify &amp; Understand your Work</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="intro.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="intro.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
+    <li>Module One: Overview &amp; Setup</li>
+    <li><a href="setup.html">Setup</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m1-overview/pages/setup.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Getting Setup for Success</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>⏱️ <em>Estimated Time: 5 Minutes</em></p>
+</div>
+<div class="paragraph">
+<p>There are two key resources you will be using in this lab:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An OpenShift cluster with the OpenShift GitOps operator pre-installed.</p>
+</li>
+<li>
+<p>Your own copy of the workshop Git repository.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The next two sections will walk you through getting access to these resources.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_copying_the_lab_repository_on_github"><a class="anchor" href="#_copying_the_lab_repository_on_github"></a>Copying the Lab Repository on GitHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ll need a GitHub account to complete this step. If you don&#8217;t have one, go ahead and sign-up at <a href="https://github.com">github.com</a>, then complete these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login to <a href="https://github.com">github.com</a>.</p>
+</li>
+<li>
+<p>Visit the lab repository at: <a href="https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt">github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt</a></p>
+</li>
+<li>
+<p>Click the <strong>Use this template</strong> button in the upper-right corner of the Git repository. A list of options will be displayed.</p>
+</li>
+<li>
+<p>Select the <strong>Create a new repository</strong> option.</p>
+</li>
+<li>
+<p>Enter <code>rht-summit-2023-gitops-cluster-mgmt</code> in the <strong>Repository name</strong> field.</p>
+</li>
+<li>
+<p>Click the <strong>Create repository from template</strong> button.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You should now have a copy of the repository at a unique URL of your own, i.e <code><a href="https://github.com/$YOUR_GITHUB_ID/rht-summit-2023-gitops-cluster-mgmt" class="bare">https://github.com/$YOUR_GITHUB_ID/rht-summit-2023-gitops-cluster-mgmt</a></code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You&#8217;ll be asked to use this repository throughout the workshop. Make sure to always use <strong>your copy</strong>, and <strong>not</strong> the original one owned by <em>evanshortiss</em> on GitHub!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_your_openshift_cluster"><a class="anchor" href="#_access_your_openshift_cluster"></a>Access your OpenShift Cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ll be using your own OpenShift cluster throughout this lab. Your cluster is pre-configured with the <strong>OpenShift Web Terminal</strong> and <strong>Red Hat OpenShift GitOps</strong> Operators. You can think of Operators as addons to an OpenShift or Kubernetes cluster that provide it with extended features/capabilities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>Web Terminal</strong> makes it easy to use pre-authenticated command-line tools (CLIs) to interact with the OpenShift APIs directly from the <strong>OpenShift Web Console</strong> in your web browser.</p>
+</li>
+<li>
+<p>Pre-installing the <strong>Red Hat OpenShift GitOps</strong> operator saved a few minutes of time so you can fully focus on actually learning about GitOps instead of setting it up!</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To access your cluster&#8217;s <strong>OpenShift Web Console</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Return to <a href="https://demo.redhat.com">demo.redhat.com</a> to obtain the URL, username, and password to access your cluster.</p>
+</li>
+<li>
+<p>Visit the cluster URL in a web browser, and select the <strong>htpasswd_provider</strong> login option when prompted.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex1.openshift-login-screen.png" alt="ex1.openshift login screen"></span></p>
+</div>
+</li>
+<li>
+<p>Login to your OpenShift cluster using the username and password provided by <a href="https://demo.redhat.com">demo.redhat.com</a>. The username should be <code>opentlc-mgr</code> and the password should be <code>r3dh4t1!</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The <strong>Overview</strong> page of the OpenShift Web Console is displayed after a successful login. From here you can perform both administrative and developer-focused tasks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_the_openshift_web_terminal"><a class="anchor" href="#_access_the_openshift_web_terminal"></a>Access the OpenShift Web Terminal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From the OpenShift Web Console you just accessed:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Verify that a terminal icon <strong>&gt;_</strong> is shown in the top-right corner of the OpenShift Web Console.</p>
+</li>
+<li>
+<p>Click the terminal icon. A new UI element will appear, and prepare a terminal session.</p>
+</li>
+<li>
+<p>Once the terminal session is ready type the <code>help</code> command, and press enter. This will display the pre-installed CLIs that are available in this lab environment.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex1.web-terminal.png" alt="ex1.web terminal"></span></p>
+</div>
+</li>
+<li>
+<p>Run the <code>oc whoami</code> command in the Web Terminal and verify that the output is the same as the username you used to login to the OpenShift Web Console.</p>
+</li>
+<li>
+<p>Run the <code>oc project openshift-gitops</code> and <code>oc get pods</code> (or <code>kubectl get pods</code>) commands to change context to the pre-configured <code>openshift-gitops</code> namespace, and confirm the <strong>OpenShift GitOps</strong> components all display a status of <strong>Running</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Nice work, you&#8217;ve successfully:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Created a repository that will hold your cluster and application manifests.</p>
+</li>
+<li>
+<p>Signed into your OpenShift cluster.</p>
+</li>
+<li>
+<p>Learned how to access and use the OpenShift Web Terminal.</p>
+</li>
+<li>
+<p>Used the <code>oc</code> and <code>kubectl</code> CLIs to interact with resources on your cluster.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="intro.html" class="query-params-link">Introduction</a></span>
+  <span class="next"><a href="../m2-argocd-introduction/accessing-argocd.html" class="query-params-link">Accessing the Cluster GitOps Dashboard</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<script src="../../../_/js/vendor/clipboard.js"></script>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

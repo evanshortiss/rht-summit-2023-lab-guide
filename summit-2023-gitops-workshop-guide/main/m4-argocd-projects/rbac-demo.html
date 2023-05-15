@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Argo CD RBAC &amp; Projects :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="prev" href="../m3-managing-namespaces/rbac-for-namespaces.html">
+    <link rel="next" href="app-of-apps.html">
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('USERID');
+      const subDomain = urlParams.get('SUBDOMAIN');
+      const apiUrl = urlParams.get('APIURL');
+      if (userId) {
+        showUserId( userId );
+      }
+      else {
+        showUserIdForm();
+      }
+    } );
+
+
+    function showUserId( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "none";
+      document.getElementById('navbar-form-filled').style.display = "flex";
+      document.getElementById('username').textContent = userId;
+      document.getElementById('subDomain').value = subDomain;
+      document.getElementById('apiUrl').value = apiUrl;
+
+    }
+
+    function showUserIdForm( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "flex";
+      document.getElementById('navbar-form-filled').style.display = "none";
+    }
+
+    function goWithUserId() {
+      elUserIdInput = document.getElementById('userId');
+      elSubDomainInput = document.getElementById('subDomain');
+      elapiUrlInput = document.getElementById('apiUrl');
+
+      window.location.search = ('&USERID=' + elUserIdInput.value + '&SUBDOMAIN=' + elSubDomainInput.value + '&APIURL=' + elapiUrlInput.value);
+    }
+
+  </script>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank"><img
+          src="../../../_/img/Logo-Red_Hat-OpenShift_4-A-Reverse-RGB.png" height="40px" alt="Red Hat OpenShift"></a>
+      <a class="navbar-item" href="../../.." style="color: white;"><h3>Summit 2023 - GitOps Workshop Guide</h3></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item" id="navbar-form-empty">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i style="color: orange;"
+              class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+
+          <form action="javascript:void(0);" onsubmit="goWithUserId();">
+            <div class="navbar-item" id="navbar-form-project-filled" style="display: none;">
+              <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+            </div>
+            <input size="40" id="userId" type="text" placeholder="Enter GitHub Org/Username">
+            <input type="hidden" id="subDomain" name="subDomain" value="">
+            <input type="hidden" id="apiUrl" name="apiUrl" value="">
+          </form>
+        </div>
+
+        <div class="navbar-item" id="navbar-form-filled" style="display: none;">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+          <span class="navbar-text" id="username"></span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i onclick="recycle();" style="color: green;" class="fa fa-recycle" aria-hidden="true"></i></span>
+        </div>
+
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="summit-2023-gitops-workshop-guide" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../m1-overview/intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module One: Overview &amp; Setup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/intro.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/setup.html">Setup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Two:  GitOps First Steps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/accessing-argocd.html">Accessing the Cluster GitOps Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/first-steps-with-argocd.html">First Steps with GitOps using Argo CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/self-healing.html">Argo CD Self-Healing Capabilities</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Three: Managing Namespaces &amp; RBAC</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/kustomize.html">Using Kustomize for Templating YAML</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/create-applications-using-kubectl.html">Create Applications using the CLI</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/rbac-for-namespaces.html">RBAC for Namespaces</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Four: Argo CD Projects &amp; App of Apps</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="rbac-demo.html">Exploring Projects &amp; RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="app-of-apps.html">The App of Apps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="verify-rbac.html">Verify &amp; Understand your Work</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../m1-overview/intro.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../m1-overview/intro.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../m1-overview/intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
+    <li>Module Four: Argo CD Projects &amp; App of Apps</li>
+    <li><a href="rbac-demo.html">Exploring Projects &amp; RBAC</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m4-argocd-projects/pages/rbac-demo.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Argo CD RBAC &amp; Projects</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>⏱️ <em>Estimated Time: 5 Minutes</em></p>
+</div>
+<div class="paragraph">
+<p>👨‍💻 <em>Role: Cluster Administrator and/or Developers</em></p>
+</div>
+<div class="paragraph">
+<p>Argo CD has a <code>default</code> project configured out of the box. This was fine for managing the cluster-scoped resources you&#8217;ve created so far, but separate projects are required if you want to create structured teams and environments, and enforce RBAC for Argo CD users.</p>
+</div>
+<div class="paragraph">
+<p>In this module you&#8217;ll learn how to manage user groups in OpenShift, and how to manage projects and RBAC in Argo CD.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_login_to_argo_cd_as_a_non_admin_user"><a class="anchor" href="#_login_to_argo_cd_as_a_non_admin_user"></a>Login to Argo CD as a Non-Admin User</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>So far you&#8217;ve been using the <code>admin</code> user to interact with Argo CD. Try using the user <code>foo</code> instead:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a private browsing session.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can start a private browser session using <strong>File &gt; New Incognito Window</strong> or <strong>File &gt; New Private Window</strong>. It will vary depending on your web browser of choice.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Login to the OpenShift Web Console by following these steps:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Select the <strong>standard-users</strong> identity provider.</p>
+</li>
+<li>
+<p>Enter the username: <code>foo</code>.</p>
+</li>
+<li>
+<p>Enter the password: <code>foopassword</code>.</p>
+</li>
+<li>
+<p>Click the <strong>Log in</strong> button.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Expand the <strong>Application Launcher</strong> icon (3x3 sqaure) in the top-right of the OpenShift Web Console.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex6.openshift-ui-argo-link.png" alt="ex6.openshift ui argo link">
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>Cluster Argo CD</strong> link. This will open a new browser tab.</p>
+</li>
+<li>
+<p>Accept the self-signed certificate warning if one appears. The login page will now appear.</p>
+</li>
+<li>
+<p>Click the <strong>Log in via OpenShift</strong> button.</p>
+</li>
+<li>
+<p>Login using the same <strong>standard-users</strong> identity provider, the <code>foo</code> username, and the <code>foopassword</code> password you used previously when prompted.</p>
+</li>
+<li>
+<p>Click the <strong>Allow selected permissions</strong> button when prompted.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You should now be logged into the Argo CD dashboard as the <code>foo</code> user.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_observing_rbac_in_argo_cd"><a class="anchor" href="#_observing_rbac_in_argo_cd"></a>Observing RBAC in Argo CD</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you&#8217;ve logged into Argo CD as the non-admin <code>foo</code> user, try to synchronise an Application:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Sync</strong> button on the <strong>console-customisations</strong> Application.</p>
+</li>
+<li>
+<p>Click the <strong>Synchronize</strong> button in the overlay that appears.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A permission denied error should appear in the bottom right corner of the screen. The text might be truncated, but it will look similar to this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Unable to deploy revision: permission denied: applications, sync, default/console-customisations</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This error means that the current user does not have permission to perform the <strong>sync</strong> action on the <strong>console-customisations</strong> Application in the <strong>default</strong> Project.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex6.argocd-permissions-error.png" alt="ex6.argocd permissions error">
+</div>
+</div>
+<div class="paragraph">
+<p>Try using the <strong>X</strong> button on any of the Application tiles to delete them. A similar error will be returned, but instead it refers to the <strong>delete</strong> action:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-plaintext hljs" data-lang="plaintext">Unable to delete application: permission denied: applications, delete, default/console-customisations</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In short, the <code>foo</code> user was automatically granted a <code>readonly</code> role. You can confirm this by using the <strong>OpenShift Web Terminal</strong> (in your other browser session as the <code>opentlc-mgr</code> user) to view the Argo CD RBAC configuration/policies:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get cm argocd-rbac-cm -o yaml -n openshift-gitops</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you&#8217;ve seen that Argo CD enforces RBAC, you&#8217;ll need to create new Projects and grant OpenShift users access to them. This involves associating users in specific <a href="https://docs.openshift.com/container-platform/4.12/rest_api/user_and_group_apis/group-user-openshift-io-v1.html">Groups</a> with policies defined in the Argo CD Project.</p>
+</div>
+<div class="paragraph">
+<p>As you might have guessed, this requires defining some more YAML resources and will be managed with another Argo CD application. You might be starting to think that it&#8217;s tedious to set up each Application one-by-one. In the next section you&#8217;ll learn how to use the <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/">App of Apps Pattern</a> to bootstrap your cluster with all your Applications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section you learned that Argo CD enforces RBAC for Projects. This might seem trivial, but it&#8217;s an important step in understanding how to manage your cluster.</p>
+</div>
+<div class="paragraph">
+<p>In the next section you&#8217;ll use the <strong>App of Apps Pattern</strong> to setup RBAC and Projects. This will enable your developers to leverage Argo CD to continuously deliver their applications!</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../m3-managing-namespaces/rbac-for-namespaces.html" class="query-params-link">RBAC for Namespaces</a></span>
+  <span class="next"><a href="app-of-apps.html" class="query-params-link">The App of Apps</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<script src="../../../_/js/vendor/clipboard.js"></script>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

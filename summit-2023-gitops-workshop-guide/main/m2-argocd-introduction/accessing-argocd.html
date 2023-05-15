@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Accessing the Cluster GitOps Dashboard :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="prev" href="../m1-overview/setup.html">
+    <link rel="next" href="first-steps-with-argocd.html">
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('USERID');
+      const subDomain = urlParams.get('SUBDOMAIN');
+      const apiUrl = urlParams.get('APIURL');
+      if (userId) {
+        showUserId( userId );
+      }
+      else {
+        showUserIdForm();
+      }
+    } );
+
+
+    function showUserId( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "none";
+      document.getElementById('navbar-form-filled').style.display = "flex";
+      document.getElementById('username').textContent = userId;
+      document.getElementById('subDomain').value = subDomain;
+      document.getElementById('apiUrl').value = apiUrl;
+
+    }
+
+    function showUserIdForm( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "flex";
+      document.getElementById('navbar-form-filled').style.display = "none";
+    }
+
+    function goWithUserId() {
+      elUserIdInput = document.getElementById('userId');
+      elSubDomainInput = document.getElementById('subDomain');
+      elapiUrlInput = document.getElementById('apiUrl');
+
+      window.location.search = ('&USERID=' + elUserIdInput.value + '&SUBDOMAIN=' + elSubDomainInput.value + '&APIURL=' + elapiUrlInput.value);
+    }
+
+  </script>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank"><img
+          src="../../../_/img/Logo-Red_Hat-OpenShift_4-A-Reverse-RGB.png" height="40px" alt="Red Hat OpenShift"></a>
+      <a class="navbar-item" href="../../.." style="color: white;"><h3>Summit 2023 - GitOps Workshop Guide</h3></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item" id="navbar-form-empty">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i style="color: orange;"
+              class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+
+          <form action="javascript:void(0);" onsubmit="goWithUserId();">
+            <div class="navbar-item" id="navbar-form-project-filled" style="display: none;">
+              <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+            </div>
+            <input size="40" id="userId" type="text" placeholder="Enter GitHub Org/Username">
+            <input type="hidden" id="subDomain" name="subDomain" value="">
+            <input type="hidden" id="apiUrl" name="apiUrl" value="">
+          </form>
+        </div>
+
+        <div class="navbar-item" id="navbar-form-filled" style="display: none;">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+          <span class="navbar-text" id="username"></span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i onclick="recycle();" style="color: green;" class="fa fa-recycle" aria-hidden="true"></i></span>
+        </div>
+
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="summit-2023-gitops-workshop-guide" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../m1-overview/intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module One: Overview &amp; Setup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/intro.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/setup.html">Setup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Two:  GitOps First Steps</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="accessing-argocd.html">Accessing the Cluster GitOps Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-steps-with-argocd.html">First Steps with GitOps using Argo CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="self-healing.html">Argo CD Self-Healing Capabilities</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Three: Managing Namespaces &amp; RBAC</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/kustomize.html">Using Kustomize for Templating YAML</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/create-applications-using-kubectl.html">Create Applications using the CLI</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/rbac-for-namespaces.html">RBAC for Namespaces</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Four: Argo CD Projects &amp; App of Apps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/rbac-demo.html">Exploring Projects &amp; RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/app-of-apps.html">The App of Apps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/verify-rbac.html">Verify &amp; Understand your Work</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../m1-overview/intro.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../m1-overview/intro.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../m1-overview/intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
+    <li>Module Two:  GitOps First Steps</li>
+    <li><a href="accessing-argocd.html">Accessing the Cluster GitOps Dashboard</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m2-argocd-introduction/pages/accessing-argocd.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Accessing the Cluster GitOps Dashboard</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>⏱️ <em>Estimated Time: 5 Minutes</em></p>
+</div>
+<div class="paragraph">
+<p>👩‍💻 <em>Role: Cluster Administrator</em></p>
+</div>
+<div class="paragraph">
+<p>Now that you&#8217;ve gotten access to your OpenShift cluster and confirmed that the Red Hat OpenShift GitOps components are up and running, it&#8217;s time to access the Argo CD dashboard. Red Hat OpenShift GitOps is based on the upstream Argo CD project, so it&#8217;ll feel familiar if you&#8217;ve the upstream project in the past.</p>
+</div>
+<div class="paragraph">
+<p>The Argo CD instance used in this workshop is deployed in the same OpenShift cluster that you&#8217;ll be customising and deploying applications into, as shown in the following image. It&#8217;s possible to deploy Argo CD on a separate cluster, but that&#8217;s outside the scope of this workshop.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex2.openshift-argo.png" alt="ex2.openshift argo">
+</div>
+</div>
+<div class="paragraph">
+<p>The Argo CD dashboard supports logins via the OAuth identity providers registered with the OpenShift cluster, or login via the Argo CD <code>admin</code> user and password. In this section you&#8217;ll be using the Argo CD <code>admin</code> user.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Remember the <code>htpasswd_provider</code> and <code>standard-users</code> options you saw when you first logged into the OpenShift Web Console? Those were different identity providers. An OpenShift cluster can be configured with one or more identity providers to facilitate user authentication.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_obtain_the_argo_cd_admin_password"><a class="anchor" href="#_obtain_the_argo_cd_admin_password"></a>Obtain the Argo CD Admin Password</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, obtain the Argo CD <em>admin</em> user&#8217;s password:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Web Terminal using the <strong>&gt;_</strong> icon in the top-right corner of the OpenShift Web Console.</p>
+</li>
+<li>
+<p>Run the following command to get the Argo CD admin password from the <code>openshift-gitops-cluster</code> <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get secret openshift-gitops-cluster \
+-o json \
+-n openshift-gitops |\
+jq '.data["admin.password"]' -r |\
+base64 --decode | xargs echo</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make a note of the password. You&#8217;ll need it in a moment.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex2.openshift-terminal-argo-secret.png" alt="ex2.openshift terminal argo secret">
+</div>
+</div>
+<div class="paragraph">
+<p>You can view the <code>admin</code> user&#8217;s password using the OpenShift Web Console instead of the Web Terminal by:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Selecting the <strong>Administrator</strong> perspective from the top of the side-menu.</p>
+</li>
+<li>
+<p>Expanding the <strong>Workloads</strong> section and selecting <strong>Secrets</strong> in the side-menu.</p>
+</li>
+<li>
+<p>Selecting <code>openshift-gitops</code> in the <strong>Project</strong> dropdown.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If the <code>openshift-gitops</code> project isn&#8217;t listed, make sure to enable the <strong>Show default projects</strong> toggle in the <strong>Project</strong> dropdown.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Clicking to <strong>Workloads &gt; Secrets</strong> link in the side-menu.</p>
+</li>
+<li>
+<p>Viewing the <em>openshift-gitops-cluster</em> Secret, and clicking <strong>Reveal Values</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The following image shows what the Secrets section of the OpenShift Web Console shows if filter for the <code>openshift-gitops-cluster</code> Secret in the <code>openshift-gitops</code> Namespace.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex2.openshift-ui-secret.png" alt="ex2.openshift ui secret">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In case you&#8217;re wondering, you can view the <code>openshift-gitops-cluster</code> and other Secrets since you&#8217;re logged in as a user with <em>cluster-admin</em> permissions. By default, new OpenShift users will have limited permissions and will be unable to view resources such as Secrets. RBAC configuration is necessary to grant users access to resources. You&#8217;ll learn more about this in subsequent sections of this lab.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_access_the_argo_cd_dashboard"><a class="anchor" href="#_access_the_argo_cd_dashboard"></a>Access the Argo CD Dashboard</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expand the <strong>Application Launcher</strong> icon (3x3 sqaure) in the top-right of the OpenShift Web Console.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex2.openshift-ui-argo-link.png" alt="ex2.openshift ui argo link">
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>Cluster Argo CD</strong> link. This will open a new browser tab.</p>
+</li>
+<li>
+<p>Accept the self-signed certificate warning if one appears. The login page will now appear.</p>
+</li>
+<li>
+<p>Ignore the <strong>Log in via OpenShift</strong> button!</p>
+</li>
+<li>
+<p>Login using the username <code>admin</code> and the password you obtained via the Web Terminal or OpenShift Web Console a few moments ago.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The Argo CD dashboard will be displayed, and state that you have "no applications yet". You&#8217;ll take care of that in the next section!</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex2.argo-dashboard.png" alt="ex2.argo dashboard">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Excellent! You learned how to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Access <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Secrets</a> using the <code>oc</code>/<code>kubectl</code> CLI, or using the OpenShift Web Console.</p>
+</li>
+<li>
+<p>Use the Web Terminal to execute commands using the <code>oc</code> (OpenShift) and <code>kubectl</code> (Kubernetes) CLIs.</p>
+</li>
+<li>
+<p>Access the Argo CD dashboard as the <code>admin</code> user.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../m1-overview/setup.html" class="query-params-link">Setup</a></span>
+  <span class="next"><a href="first-steps-with-argocd.html" class="query-params-link">First Steps with GitOps using Argo CD</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<script src="../../../_/js/vendor/clipboard.js"></script>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>RBAC for Namespaces :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="prev" href="granting-service-account-permission.html">
+    <link rel="next" href="../m4-argocd-projects/rbac-demo.html">
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('USERID');
+      const subDomain = urlParams.get('SUBDOMAIN');
+      const apiUrl = urlParams.get('APIURL');
+      if (userId) {
+        showUserId( userId );
+      }
+      else {
+        showUserIdForm();
+      }
+    } );
+
+
+    function showUserId( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "none";
+      document.getElementById('navbar-form-filled').style.display = "flex";
+      document.getElementById('username').textContent = userId;
+      document.getElementById('subDomain').value = subDomain;
+      document.getElementById('apiUrl').value = apiUrl;
+
+    }
+
+    function showUserIdForm( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "flex";
+      document.getElementById('navbar-form-filled').style.display = "none";
+    }
+
+    function goWithUserId() {
+      elUserIdInput = document.getElementById('userId');
+      elSubDomainInput = document.getElementById('subDomain');
+      elapiUrlInput = document.getElementById('apiUrl');
+
+      window.location.search = ('&USERID=' + elUserIdInput.value + '&SUBDOMAIN=' + elSubDomainInput.value + '&APIURL=' + elapiUrlInput.value);
+    }
+
+  </script>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank"><img
+          src="../../../_/img/Logo-Red_Hat-OpenShift_4-A-Reverse-RGB.png" height="40px" alt="Red Hat OpenShift"></a>
+      <a class="navbar-item" href="../../.." style="color: white;"><h3>Summit 2023 - GitOps Workshop Guide</h3></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item" id="navbar-form-empty">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i style="color: orange;"
+              class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+
+          <form action="javascript:void(0);" onsubmit="goWithUserId();">
+            <div class="navbar-item" id="navbar-form-project-filled" style="display: none;">
+              <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+            </div>
+            <input size="40" id="userId" type="text" placeholder="Enter GitHub Org/Username">
+            <input type="hidden" id="subDomain" name="subDomain" value="">
+            <input type="hidden" id="apiUrl" name="apiUrl" value="">
+          </form>
+        </div>
+
+        <div class="navbar-item" id="navbar-form-filled" style="display: none;">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+          <span class="navbar-text" id="username"></span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i onclick="recycle();" style="color: green;" class="fa fa-recycle" aria-hidden="true"></i></span>
+        </div>
+
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="summit-2023-gitops-workshop-guide" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../m1-overview/intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module One: Overview &amp; Setup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/intro.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/setup.html">Setup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Two:  GitOps First Steps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/accessing-argocd.html">Accessing the Cluster GitOps Dashboard</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/first-steps-with-argocd.html">First Steps with GitOps using Argo CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m2-argocd-introduction/self-healing.html">Argo CD Self-Healing Capabilities</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Three: Managing Namespaces &amp; RBAC</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kustomize.html">Using Kustomize for Templating YAML</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="create-applications-using-kubectl.html">Create Applications using the CLI</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="rbac-for-namespaces.html">RBAC for Namespaces</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Four: Argo CD Projects &amp; App of Apps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/rbac-demo.html">Exploring Projects &amp; RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/app-of-apps.html">The App of Apps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/verify-rbac.html">Verify &amp; Understand your Work</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../m1-overview/intro.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../m1-overview/intro.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../m1-overview/intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
+    <li>Module Three: Managing Namespaces &amp; RBAC</li>
+    <li><a href="rbac-for-namespaces.html">RBAC for Namespaces</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m3-managing-namespaces/pages/rbac-for-namespaces.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">RBAC for Namespaces</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>⏱️ <em>Estimated Time: 5 Minutes</em></p>
+</div>
+<div class="paragraph">
+<p>👨‍💻 <em>Role: Cluster Administrator</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verify_namespace_access"><a class="anchor" href="#_verify_namespace_access"></a>Verify Namespace Access</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At this point, you&#8217;ve successfully created two Namespaces by synchronising resources using Argo CD. Verify that you can access them:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login to the OpenShift Web Console.</p>
+</li>
+<li>
+<p>Select the <strong>Administrator</strong> perspective.</p>
+</li>
+<li>
+<p>Scroll down and find the <strong>Home &gt; Projects</strong> section using the side-menu.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A Project in OpenShift is a Kubernetes Namespace with some extra annotations. For all intents and purposes, you can treat an OpenShift "Project" as analogous to a "Namespace" during this workshop.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Find the <code>project-memes-dev</code> Namespace as shown.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.openshift-ui-meme-projects.png" alt="ex4.openshift ui meme projects">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Great! Now try doing the same thing again, but as a user without the <code>cluster-admin</code> role:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log out of the OpenShift Web Console by clicking your username in the top-right corner, and clicking the <strong>Log out</strong> link that appears.</p>
+</li>
+<li>
+<p>From the OpenShift login screen select the <strong>standard-users</strong> provider, then login using:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Username: <code>foo</code></p>
+</li>
+<li>
+<p>Password: <code>foopassword</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>You should be redirected to the OpenShift Web Console. The <strong>Developer Perspective</strong> will be displayed by default.</p>
+</li>
+<li>
+<p>Dismiss the guided tour popup that appears.</p>
+</li>
+<li>
+<p>Click the <strong>Project</strong> dropdown, and note that the <strong>foo</strong> user is unable to see any projects!</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.openshift-ui-foo-no-projects.png" alt="ex4.openshift ui foo no projects">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure_user_rbac_for_namespaces"><a class="anchor" href="#_configure_user_rbac_for_namespaces"></a>Configure User RBAC for Namespaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ll need to grant some permissions to the user named <strong>foo</strong> so they can interact with the Namespace you just created. You can grant roles to users for a specific Namespace using a <a href="https://docs.openshift.com/container-platform/4.12/rest_api/role_apis/rolebinding-authorization-openshift-io-v1.html">RoleBinding</a> CR:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open your copy of the lab GitHub repository, and open the GitHub editor using the period/dot shortcut key.</p>
+</li>
+<li>
+<p>Create a file named <em>role.yaml</em> in the <em>managed-namespaces/overlays/project-memes-dev</em> directory, and add the following content to the file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: memes-dev-editors
+  namespace: project-memes-dev
+roleRef:
+  # The role being bound. In this case we're re-using the existing
+  # edit role that's defined at cluster scope
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+  # Make user "foo" a subject of this role, thus granting
+  # them edit access in the project-memes-dev namespace
+  - kind: User
+    name: foo
+    namespace: project-memes-dev</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update <em>managed-namespaces/overlays/project-memes-dev/kustomization.yaml</em> file to reference the new <em>role.yaml</em> file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bases:
+- ../../base
+- role.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The resulting files should look like this:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.github-ide-role-namespace.png" alt="ex4.github ide role namespace">
+</div>
+</div>
+</li>
+<li>
+<p>Commit and push the change using the <strong>Source Control</strong> section of the GitHub editor.</p>
+</li>
+<li>
+<p>Return to the Argo CD dashboard and wait for the <strong>managed-namespaces</strong> project to synchronise, or use the <strong>Refresh</strong> button to trigger a Git pull and synchronisation.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once the synchronisation is complete, the <strong>foo</strong> user should be able to view and interact with the <strong>project-memes-dev</strong> Namespace:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex4.openshift-ui-foo-edit-dev.png" alt="ex4.openshift ui foo edit dev">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Congratulations! In this module you learned how to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use Kustomize to create resources from YAML templates.</p>
+</li>
+<li>
+<p>Create Argo CD Applications directly from the terminal using <code>kubectl</code>/<code>oc</code>.</p>
+</li>
+<li>
+<p>Grant permissions to the Argo CD Service Account.</p>
+</li>
+<li>
+<p>Manage user permissions using Roles and RoleBindings, synchronised via Argo CD.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="granting-service-account-permission.html" class="query-params-link">Argo CD Service Account Permissions</a></span>
+  <span class="next"><a href="../m4-argocd-projects/rbac-demo.html" class="query-params-link">Exploring Projects &amp; RBAC</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<script src="../../../_/js/vendor/clipboard.js"></script>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

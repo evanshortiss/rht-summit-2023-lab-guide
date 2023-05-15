@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>First Steps with GitOps using Argo CD :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="prev" href="accessing-argocd.html">
+    <link rel="next" href="self-healing.html">
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get('USERID');
+      const subDomain = urlParams.get('SUBDOMAIN');
+      const apiUrl = urlParams.get('APIURL');
+      if (userId) {
+        showUserId( userId );
+      }
+      else {
+        showUserIdForm();
+      }
+    } );
+
+
+    function showUserId( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "none";
+      document.getElementById('navbar-form-filled').style.display = "flex";
+      document.getElementById('username').textContent = userId;
+      document.getElementById('subDomain').value = subDomain;
+      document.getElementById('apiUrl').value = apiUrl;
+
+    }
+
+    function showUserIdForm( userId ) {
+      document.getElementById('navbar-form-empty').style.display = "flex";
+      document.getElementById('navbar-form-filled').style.display = "none";
+    }
+
+    function goWithUserId() {
+      elUserIdInput = document.getElementById('userId');
+      elSubDomainInput = document.getElementById('subDomain');
+      elapiUrlInput = document.getElementById('apiUrl');
+
+      window.location.search = ('&USERID=' + elUserIdInput.value + '&SUBDOMAIN=' + elSubDomainInput.value + '&APIURL=' + elapiUrlInput.value);
+    }
+
+  </script>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank"><img
+          src="../../../_/img/Logo-Red_Hat-OpenShift_4-A-Reverse-RGB.png" height="40px" alt="Red Hat OpenShift"></a>
+      <a class="navbar-item" href="../../.." style="color: white;"><h3>Summit 2023 - GitOps Workshop Guide</h3></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item" id="navbar-form-empty">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i style="color: orange;"
+              class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+
+          <form action="javascript:void(0);" onsubmit="goWithUserId();">
+            <div class="navbar-item" id="navbar-form-project-filled" style="display: none;">
+              <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+            </div>
+            <input size="40" id="userId" type="text" placeholder="Enter GitHub Org/Username">
+            <input type="hidden" id="subDomain" name="subDomain" value="">
+            <input type="hidden" id="apiUrl" name="apiUrl" value="">
+          </form>
+        </div>
+
+        <div class="navbar-item" id="navbar-form-filled" style="display: none;">
+          <span class="navbar-text" style="margin-left: 1rem;">Your Workshop Environment</span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">|</span>
+          <span class="navbar-text" id="username"></span>
+          <span class="navbar-text" style="margin-left: 1rem; margin-right: 1rem;">&nbsp;<i onclick="recycle();" style="color: green;" class="fa fa-recycle" aria-hidden="true"></i></span>
+        </div>
+
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="summit-2023-gitops-workshop-guide" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../m1-overview/intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module One: Overview &amp; Setup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/intro.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/setup.html">Setup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Two:  GitOps First Steps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="accessing-argocd.html">Accessing the Cluster GitOps Dashboard</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="first-steps-with-argocd.html">First Steps with GitOps using Argo CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="self-healing.html">Argo CD Self-Healing Capabilities</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Three: Managing Namespaces &amp; RBAC</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/kustomize.html">Using Kustomize for Templating YAML</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/create-applications-using-kubectl.html">Create Applications using the CLI</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/rbac-for-namespaces.html">RBAC for Namespaces</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Four: Argo CD Projects &amp; App of Apps</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/rbac-demo.html">Exploring Projects &amp; RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/app-of-apps.html">The App of Apps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m4-argocd-projects/verify-rbac.html">Verify &amp; Understand your Work</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Summit 2023 - GitOps Workshop Guide</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../m1-overview/intro.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../m1-overview/intro.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../m1-overview/intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
+    <li>Module Two:  GitOps First Steps</li>
+    <li><a href="first-steps-with-argocd.html">First Steps with GitOps using Argo CD</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m2-argocd-introduction/pages/first-steps-with-argocd.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">First Steps with GitOps using Argo CD</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>⏱️ <em>Estimated Time: 5 Minutes</em></p>
+</div>
+<div class="paragraph">
+<p>👩‍💻 <em>Role: Cluster Administrator</em></p>
+</div>
+<div class="paragraph">
+<p>Red Hat OpenShift GitOps is based on the upstream <a href="https://argo-cd.readthedocs.io/en/stable/">Argo CD</a> project. This means that the <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRs</a> (resources defined using YAML or JSON) used to manage your resources and applications using Argo CD can be used with Red Hat OpenShift GitOps.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understanding_the_application_cr"><a class="anchor" href="#_understanding_the_application_cr"></a>Understanding the Application CR</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications">Application CR</a> is provided by Argo CD to declaratively define, manage, and deploy applications on Kubernetes, and Kubernetes-based platforms such as Red Hat OpenShift. This CR allows you to synchronise resources in a Git repository to an OpenShift/Kubernetes cluster.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s take a look at an example of an Application CR:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Visit <strong>your copy</strong> of the <a href="https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt">lab repository</a> in a web browser.</p>
+</li>
+<li>
+<p>Find and open the <em>etc/console-customisations.application.yaml</em> file.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex3.github-ide.png" alt="ex3.github ide">
+</div>
+</div>
+</li>
+<li>
+<p>This file defines an <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications">Application</a>. Some notable fields include:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>spec.destination.server</code> - The target Kubernetes cluster. This Application will sync against the Kubernetes API in the same cluster that&#8217;s running Red Hat OpenShift GitOps, i.e your OpenShift cluster.</p>
+</li>
+<li>
+<p><code>spec.source.repoURL</code> - Defines the Git repository that contains the resources that should be synchronised the the Kubernetes cluster specified in <code>spec.destination.server</code>.</p>
+</li>
+<li>
+<p><code>spec.project</code> - Argo CD has the concept of Projects. A Project can contain multiple Application instances, and can be used by to define RBAC. You will be using the <code>default</code> Project for now.</p>
+</li>
+<li>
+<p><code>spec.syncPolicy</code> - Specifies rules for the synchronisation behaviour. In this case, we want to automatically sync once per minute, remove resources (<code>prune</code>) if they&#8217;ve been removed from the Git repository, and enable self-healing (<code>selfHeal</code>) so our cluster state always matches what&#8217;s specified in the Git repository.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The concept of a Project in Argo CD is separate to the concept of an OpenShift Project. You&#8217;ll learn more about these in subsequent sections of this workshop.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll use the <em>console-customisations.application.yaml</em> file to create your first Application in Argo CD!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_an_argo_cd_application_using_the_argo_cd_ui"><a class="anchor" href="#_create_an_argo_cd_application_using_the_argo_cd_ui"></a>Create an Argo CD Application using the Argo CD UI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Application CR you examined in the prior section will be put to use now. Import the Application using the Argo CD dashboard:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Return to the Argo CD dashboard. If you&#8217;ve forgotten how to access it, re-read the <strong>Accessing the Cluster GitOps Dashboard</strong> section of this workshop.</p>
+</li>
+<li>
+<p>Click the <strong>New App</strong> or <strong>Create Application</strong> button. A form will appear. You could use this form to define the Application, but there&#8217;s no need since you already have a YAML file prepared. Take a moment to examine the form, then move to the next step.</p>
+</li>
+<li>
+<p>Click the <strong>Edit as YAML</strong> button.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex3.argo-dashboard-create.png" alt="ex3.argo dashboard create">
+</div>
+</div>
+</li>
+<li>
+<p>Replace the pre-defined YAML template with the contents of your <em>console-customisations.application.yaml</em> from your GitHub repository.</p>
+</li>
+<li>
+<p>Edit the <code>spec.source.repoURL</code> field in the YAML to match the URL of <strong>your copy</strong> of the repository.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex3.argo-dashboard-yaml.png" alt="ex3.argo dashboard yaml">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Save</strong>. Did you notice that the form has been updated to match the values that were defined in your YAML?</p>
+</li>
+<li>
+<p>Finally, click the <strong>Create</strong> button.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The Application will appear as a new tile named <strong>console-customisations</strong> in the Argo CD Dashboard, and should report both <strong>Healthy</strong> and <strong>Synced</strong> statuses.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex3.argo-dashboard-with-console-customisations.png" alt="ex3.argo dashboard with console customisations">
+</div>
+</div>
+<div class="paragraph">
+<p>Click on the tile to view the Application details. You should see a <strong>welcome-banner</strong> resource of type <strong>consolenotification</strong>, and a <strong>workshop-repository</strong> resource of type <strong>consolelink</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex3.argo-console-customisations.png" alt="ex3.argo console customisations">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_observing_the_effects_of_your_application"><a class="anchor" href="#_observing_the_effects_of_your_application"></a>Observing the Effects of your Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You might be wondering what creating your Application in Argo CD achieved. If you return to the OpenShift Web Console it should be displaying a new banner at the top of the screen.</p>
+</div>
+<div class="paragraph">
+<p>This is the result of the Argo CD Application synchronising the custom resources in the <em>console-customisations/</em> directory of your Git repository to the OpenShift cluster. Specifically, it synchronised a <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.12/html/web_console/customizing-web-console#creating-custom-notification-banners_customizing-web-console">ConsoleNotification CR</a> to the cluster.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex3.console-notification-original.png" alt="ex3.console notification original">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_syncing_new_changes_to_the_openshift_cluster"><a class="anchor" href="#_syncing_new_changes_to_the_openshift_cluster"></a>Syncing New Changes to the OpenShift Cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Try changing the message in the Console Notification and committing it to your repository on GitHub:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Visit <strong>your copy</strong> of the <a href="https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt">lab repository</a> in a web browser.</p>
+</li>
+<li>
+<p>Press the dot/period key on your keyboard to open the GitHub editor.</p>
+</li>
+<li>
+<p>Open the <em>console-customisations/console-notification.welcome-banner.yaml</em> in the GitHub editor.</p>
+</li>
+<li>
+<p>Edit the <code>spec.text</code> to read <code>Fáilte chuig Red Hat Summit 2023!</code>, or a similar message of your choosing.</p>
+</li>
+<li>
+<p>Use the <strong>Source Control</strong> section (from the icons on the left) of the GitHub editor.</p>
+</li>
+<li>
+<p>Enter a commit message, then click the <strong>Commit &amp; Push</strong> button.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Verify that your new message is synced to the OpenShift cluster:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Return to the Argo CD Dashboard and select the <strong>console-customisations</strong> application.</p>
+</li>
+<li>
+<p>Observe the <strong>Last Sync Result</strong> section. Depending on your timing it will be showing your latest commit message, or a prior commit message.</p>
+</li>
+<li>
+<p>If your latest commit message isn&#8217;t shown, you can wait up to 3 minutes (this is the default Git polling interval) for Argo CD to perform a refresh, or use the <strong>Refresh</strong> button to for Argo CD to check the Git repository for changes.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once the latest commit has been synced you should see your new message displayed at the top of the OpenShift Web Console.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex3.console-notification-updated.png" alt="ex3.console notification updated">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Congratulations! Managing a notification banner might seem like a trivial example, but you learned some important stuff in doing so!</p>
+</div>
+<div class="paragraph">
+<p>You learned:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>About the <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications">Application CR</a>, and how to use it.</p>
+</li>
+<li>
+<p>How to create an <strong>Application</strong> from the Argo CD dashboard using the form, or YAML.</p>
+</li>
+<li>
+<p>That YAML resources can be synchronised to the OpenShift cluster automatically by Argo CD.</p>
+</li>
+<li>
+<p>That the OpenShift Web Console can be customised using <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.12/html/web_console/customizing-web-console#creating-custom-notification-banners_customizing-web-console">ConsoleNotification</a> and other supported CRs.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Continue to the next section to learn more advanced GitOps use-cases and techniques.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="accessing-argocd.html" class="query-params-link">Accessing the Cluster GitOps Dashboard</a></span>
+  <span class="next"><a href="self-healing.html" class="query-params-link">Argo CD Self-Healing Capabilities</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<script src="../../../_/js/vendor/clipboard.js"></script>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
