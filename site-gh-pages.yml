@@ -7,7 +7,7 @@ site:
 content:
   sources:
     - url: .
-      branches: master
+      branches: main
       start_path: docs/
 
 asciidoc:
