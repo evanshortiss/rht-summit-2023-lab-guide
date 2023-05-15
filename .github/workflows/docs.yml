@@ -3,7 +3,7 @@ name: docs
 on:
   push:
     branches: 
-    - master
+    - main
     paths:
     - .github/workflows/docs.yml
     - site-gh-pages.yml
