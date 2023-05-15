@@ -9,6 +9,9 @@ on:
     - site-gh-pages.yml
     - 'docs/**'
 
+permissions:
+  contents: write
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
