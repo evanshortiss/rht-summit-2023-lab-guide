@@ -1,0 +1,28 @@
+name: docs
+
+on:
+  push:
+    branches: 
+    - master
+    paths:
+    - .github/workflows/docs.yml
+    - site-gh-pages.yml
+    - 'docs/**'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout project
+      uses: actions/checkout@v2
+    - name: Run antora
+      uses: docker://antora/antora:3.1.2
+      with:
+        args: site-gh-pages.yml
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        GITHUB_TOKEN: "${{github.token}}"
+        FOLDER: gh-pages
+        BRANCH: gh-pages
+        COMMIT_MESSAGE: "[docs] Publishing the docs for commit(s) ${{github.sha}}"

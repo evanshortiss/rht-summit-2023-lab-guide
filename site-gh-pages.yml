@@ -7,6 +7,7 @@ site:
 content:
   sources:
     - url: .
+      branches: master
       start_path: docs/
 
 asciidoc:
@@ -20,4 +21,4 @@ ui:
   supplemental_files: ./ui/supplemental-ui
 
 output:
-  dir: ./site
+  dir: ./gh-pages
