@@ -1,0 +1,42 @@
+# Observing the Continuous Deployment (CD) Process
+
+Your pull request should be ready to merge. After merging the pull request, Argo CD will notice the changes within 3 minutes (default polling interval), and apply the new ConfigMap to your `project-foo` Namespace.
+
+[NOTE]
+====
+It's possible to https://argo-cd.readthedocs.io/en/stable/operator-manual/webhook/[configure a webhook] that immediately notifies Argo CD when new changes are merged into the Git repository. This is outside of the scope of this workshop.
+====
+
+To merge your pull request:
+
+. Open your pull request in GitHub.
+. Scroll down and click on the *Merge pull request* button.
+. Verify the title and commit message are to your liking, then click *Confirm merge*.
+
+Once the pull request has been merged, take a look in the Argo CD dashboard. The new commit that you merged will show up within 3 minutes.
+
+[NOTE]
+====
+You can use the *Refresh* button in Argo CD to force it to check the Git repository for changes, if you don't want to wait. If you set the sync configuration to "Automated", then as soon as the refresh completes it will trigger a sync for the new changes.
+====
+
+image:ex8.argo-post-merge.png[]
+
+Once your new commit has been synchronised by Argo CD, your meme will be available to view. Follow the steps from the *Test the Containerised Application* to find the URL for your application. Refresh the page a few times and your meme will eventually be shown, all with zero downtime or manual processes beyond approving a pull request! 
+
+You can further confirm that the new ConfigMap has been synchronised by:
+
+. Logging into the Argo CD dashboard.
+. Selecting the *random-meme* application.
+. Clicking on the *images-json* ConfigMap in the *Application Details Tree*.
+. Scrolling down in the overlay that appears and confirming your new image URL is listed in the *Live Manifest* YAML.
+
+image:ex8.argocd-live-manifest.png[]
+
+== Summary
+
+Congratulations! You learned how to:
+
+* Use a Argo CD to deploy a containerised application.
+* Create and merge a pull request after CI checks have passed.
+* Verify that Argo CD has deployed your changes as part of your CI/CD pipeline by checking the live manifest.

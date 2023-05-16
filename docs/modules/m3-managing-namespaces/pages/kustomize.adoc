@@ -18,29 +18,30 @@ image::ex4.kustomize.png[]
 
 You'll be using Kustomize to build out your Namespaces based on a shared template. The repository you made a copy of has included the template files to save some time. 
 
-. Navigate to your copy of the GitHub repository and open the _managed-namespaces/base_ folder.
-. Take a look at the _namespace.yaml_ and _resource-quota.yaml_ files. These are resources that can be applied to a Kubernetes/OpenShift cluster.
+. Navigate to the _https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/managed-namespaces/base[managed-namespaces/base, window=_blank]_ folder in your repository.
+. View the contents of the _namespace.yaml_ and _resource-quota.yaml_ files. These are resources that can be applied to a Kubernetes/OpenShift cluster.
 +
 [NOTE]
 ====
-The `argocd.argoproj.io/sync-wave` annotations on the YAML resources control the order in which they will be applied by Argo CD. This concept is known as https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/[Sync Waves]. Utilising Sync Waves is important, since the Namespace needs to exist before other resources can be applied within it.
+The `argocd.argoproj.io/sync-wave` annotations on the YAML resources control the order in which they will be applied by Argo CD. These annotations are related to a concept known as https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/[Sync Waves]. Utilising Sync Waves is important in this example, since the Namespace needs to exist before other resources can be applied within it.
 ====
-. Open the _managed-namespaces/base/kustomization.yaml_ file. This file references the _namespace.yaml_ and _resource-quota.yaml_ files.
+. Open the _https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/managed-namespaces/base/kustomization.yaml[managed-namespaces/base/kustomization.yaml, window=_blank]_ file. This file references the _namespace.yaml_ and _resource-quota.yaml_ files.
 
 These files are referred to as *bases* or the *base* files to be used by Kustomize. In the next steps you'll define *overlays* that extend/modify the base configuration(s).
 
 == Define a Namespace using Overlays
 
-A Namespace is already defined in the _managed-namespaces/overlays/project-memes-dev_ folder. You'll use this as a template to make a second Namespace:
+A Namespace is already defined in the _https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/managed-namespaces/overlays/project-memes-dev[managed-namespaces/overlays/project-memes-dev, window=_blank]_ folder. You'll use this as a template to make a second Namespace:
 
 . Navigate to your copy of the GitHub repository.
-. Press the period/dot key to open GitHub's web-based text editor.
+. Press the period/dot key to open GitHub's web-based editor.
 . Create a *folder* named `project-memes-prod` inside the _managed-namespaces/overlays/_ folder. This folder will contain your Namespace configuration.
 . Create a *file* named `kustomization.yaml` inside your _managed-namespaces/overlays/project-memes-prod_ folder.
 +
 image::ex4.github-ide.png[]
 . Place the following content in _managed-namespaces/overlays/project-memes-prod/kustomization.yaml_. This will use the base files, but replace the default Namespace value and double the ResourceQuota values:
 +
+[.console-input]
 [source,yaml]
 ----
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -74,8 +75,9 @@ patches:
       path: /spec/hard/memory
       value: 1Gi
 ----
-. Edit the `kustomization.yaml` file in the _managed-namespaces/overlays/_ folder to reference your new Namespace configuration:
+. Edit the `kustomization.yaml` file in the _managed-namespaces/overlays/_ folder to reference your new Namespace configuration. It should now look like this:
 +
+[.console-input]
 [source,yaml]
 ----
 bases:

@@ -16,12 +16,14 @@ You currently have a Console Notification being managed by Argo CD. The `selfHea
 . Open the OpenShift Web Terminal using the *>_* icon.
 . Run the following command to list existing Console Notification resources:
 +
+[.console-input]
 [source,bash]
 ----
 oc get consolenotification
 ----
 . Run the following command to delete the `welcome-banner` Console Notification:
 +
+[.console-input]
 [source,bash]
 ----
 oc delete consolenotification welcome-banner
@@ -34,6 +36,7 @@ The reason that the Console Notification reappears is because the *console-custo
 ====
 . List existing Console Notification resources again, and pay attention to the *AGE* column:
 +
+[.console-input]
 [source,bash]
 ----
 oc get consolenotification
@@ -59,6 +62,7 @@ image::ex5-argocd-disable-healing.png[]
 . Return to the OpenShift Web Console, and open the OpenShift Web Terminal.
 . Return to the Web Terminal and run the following command to delete the ConsoleNotification:
 +
+[.console-input]
 [source,bash]
 ----
 oc delete consolenotification welcome-banner

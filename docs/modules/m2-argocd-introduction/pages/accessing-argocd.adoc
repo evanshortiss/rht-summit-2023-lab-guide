@@ -24,6 +24,7 @@ First, obtain the Argo CD _admin_ user's password:
 . Open the Web Terminal using the **>_** icon in the top-right corner of the OpenShift Web Console.
 . Run the following command to get the Argo CD admin password from the `openshift-gitops-cluster` https://kubernetes.io/docs/concepts/configuration/secret/[Secret]:
 +
+[.console-input]
 [source,bash]
 ----
 kubectl get secret openshift-gitops-cluster \
@@ -46,7 +47,6 @@ You can view the `admin` user's password using the OpenShift Web Console instead
 ====
 If the `openshift-gitops` project isn't listed, make sure to enable the *Show default projects* toggle in the *Project* dropdown.
 ====
-. Clicking to **Workloads > Secrets** link in the side-menu.
 . Viewing the _openshift-gitops-cluster_ Secret, and clicking **Reveal Values**.
 
 The following image shows what the Secrets section of the OpenShift Web Console shows if filter for the `openshift-gitops-cluster` Secret in the `openshift-gitops` Namespace.
@@ -55,7 +55,7 @@ image::ex2.openshift-ui-secret.png[]
 
 [NOTE]
 ====
-In case you're wondering, you can view the `openshift-gitops-cluster` and other Secrets since you're logged in as a user with _cluster-admin_ permissions. By default, new OpenShift users will have limited permissions and will be unable to view resources such as Secrets. RBAC configuration is necessary to grant users access to resources. You'll learn more about this in subsequent sections of this lab.
+In case you're wondering, you can view the `openshift-gitops-cluster` and other Secrets since you're logged in as a user with _cluster-admin_ permissions. By default, new OpenShift users will have limited permissions and will be unable to view resources such as Secrets. RBAC configuration is necessary to grant users access to resources. You'll learn more about this in subsequent sections of this workshop.
 ====
 
 == Access the Argo CD Dashboard

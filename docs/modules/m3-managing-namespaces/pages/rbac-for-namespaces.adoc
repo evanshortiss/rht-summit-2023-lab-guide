@@ -36,9 +36,11 @@ image::ex4.openshift-ui-foo-no-projects.png[]
 
 You'll need to grant some permissions to the user named *foo* so they can interact with the Namespace you just created. You can grant roles to users for a specific Namespace using a https://docs.openshift.com/container-platform/4.12/rest_api/role_apis/rolebinding-authorization-openshift-io-v1.html[RoleBinding] CR:
 
-. Open your copy of the lab GitHub repository, and open the GitHub editor using the period/dot shortcut key. 
+
+. Open your copy of the workshop GitHub repository (https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt[github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt, window=_blank]), and open the GitHub editor using the period/dot shortcut key. 
 . Create a file named _role.yaml_ in the _managed-namespaces/overlays/project-memes-dev_ directory, and add the following content to the file:
 +
+[.console-input]
 [source,yaml]
 ----
 apiVersion: rbac.authorization.k8s.io/v1
@@ -61,6 +63,7 @@ subjects:
 ----
 . Update _managed-namespaces/overlays/project-memes-dev/kustomization.yaml_ file to reference the new _role.yaml_ file:
 +
+[.console-input]
 [source,yaml]
 ----
 bases:

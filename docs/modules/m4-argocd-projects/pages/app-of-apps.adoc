@@ -20,12 +20,14 @@ The Web Terminal in your environment has the Argo CD CLI pre-installed. Login to
 . Open the OpenShift Web Terminal using the *>_* icon.
 . Verify the Argo CD CLI is available by trying to view the installed version of the CLI:
 +
+[.console-input]
 [source,bash]
 ----
 argocd version
 ----
 . Once you've confirmed the `argocd` binary is available, login to your Argo CD instance as the `admin` user:
 +
+[.console-input]
 [source,bash]
 ----
 export ARGO_PASSWORD=$(kubectl get secret openshift-gitops-cluster -o json -n openshift-gitops | jq '.data["admin.password"]' -r | base64 --decode)
@@ -37,6 +39,7 @@ argocd login openshift-gitops-server.openshift-gitops.svc.cluster.local \
 ----
 . List your current Applications using the following command:
 +
+[.console-input]
 [source,bash]
 ----
 argocd app list
@@ -60,6 +63,7 @@ Argo CD supports Helm charts, so you can use it to create the App of Apps from t
 . Use the *Source Control* tab to commit and push the change.
 . Return to the Web Terminal where you logged in to your Argo CD cluster as the `admin` user and run the following command (set `GITHUB_URL` to your repository's URL) to create the new *app-of-apps* Application:
 +
+[.console-input]
 [source,bash]
 ----
 export GITHUB_URL=https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt

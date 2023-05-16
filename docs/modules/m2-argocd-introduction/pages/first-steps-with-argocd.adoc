@@ -1,6 +1,6 @@
 # First Steps with GitOps using Argo CD
 
-⏱️ _Estimated Time: 5 Minutes_
+⏱️ _Estimated Time: 5-10 Minutes_
 
 👩‍💻 _Role: Cluster Administrator_
 
@@ -12,8 +12,7 @@ The https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#
 
 Let's take a look at an example of an Application CR:
 
-. Visit *your copy* of the https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt[lab repository] in a web browser.
-. Find and open the _etc/console-customisations.application.yaml_ file. 
+. View the _https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/etc/console-customisations.application.yaml[etc/console-customisations.application.yaml, window=_blank]_ file in *your copy* of the workshop repository. 
 // TODO REPLACE THIS SCREENSHOT
 +
 image::ex3.github-ide.png[] 
@@ -28,7 +27,7 @@ image::ex3.github-ide.png[]
 The concept of a Project in Argo CD is separate to the concept of an OpenShift Project. You'll learn more about these in subsequent sections of this workshop.
 ====
 
-You'll use the _console-customisations.application.yaml_ file to create your first Application in Argo CD!
+You'll use the _https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/etc/console-customisations.application.yaml[etc/console-customisations.application.yaml, window=_blank]_  file to create your first Application in Argo CD!
 
 == Create an Argo CD Application using the Argo CD UI
 
@@ -43,6 +42,11 @@ image::ex3.argo-dashboard-create.png[]
 . Edit the `spec.source.repoURL` field in the YAML to match the URL of *your copy* of the repository.
 +
 image::ex3.argo-dashboard-yaml.png[]
++
+[IMPORTANT]
+====
+Failing to use the correct URL in the YAML will cause issues in subsequent sections. Make sure to replace that `REPLACE_ME` text with your GitHub username or organisation!
+====
 . Click **Save**. Did you notice that the form has been updated to match the values that were defined in your YAML?
 . Finally, click the **Create** button.
 
@@ -68,12 +72,17 @@ image::ex3.console-notification-original.png[]
 
 Try changing the message in the Console Notification and committing it to your repository on GitHub:
 
-. Visit *your copy* of the https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt[lab repository] in a web browser.
-. Press the dot/period key on your keyboard to open the GitHub editor.
-. Open the _console-customisations/console-notification.welcome-banner.yaml_ in the GitHub editor.
+. Visit your copy of the workshop repository at https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt[github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt]
+. Open the _console-customisations/console-notification.welcome-banner.yaml_ file.
+. Click the edit icon in the top-right corner.
++
+image:ex2.gh-file-view.png[]
 . Edit the `spec.text` to read `Fáilte chuig Red Hat Summit 2023!`, or a similar message of your choosing.
-. Use the **Source Control** section (from the icons on the left) of the GitHub editor.
-. Enter a commit message, then click the **Commit & Push** button.
++
+image:ex2.gh-file-edit.png[]
+. Click the **Commit Changes...** button in the top-right.
+. Enter a commit message, then click the **Commit Changes** button to commit to the `main` branch.
+image:ex2.gh-file-commit.png[]
 
 Verify that your new message is synced to the OpenShift cluster:
 
