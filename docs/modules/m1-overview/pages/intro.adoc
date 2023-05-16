@@ -11,8 +11,8 @@ By the end of this workshop you will know how to:
 * Manage Namespaces, Resource Quotas, and RBAC using GitOps.
 * Keep configurations in a desired state using GitOps.
 * Enable teams to leverage GitOps to deploy their applications.
+* Use the the "App of Apps" pattern to bootstrap a cluster using GitOps.
 * Continuously Deliver a containerised application using GitOps.
-* (Bonus) Use the the "App of Apps" pattern to bootstrap a cluster using GitOps.
 
 == What is OpenShift?
 
