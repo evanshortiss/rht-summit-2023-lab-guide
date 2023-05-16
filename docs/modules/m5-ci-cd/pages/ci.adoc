@@ -7,13 +7,7 @@ Nice work on getting the application deployed on OpenShift! Now you'll make a ch
 . Once the GitHub IDE has loaded:
     * Click the branch name (`main` by default) in the bottom left.
     * Select *Create new branch* in the popup that appears.
-    * Enter the follwoing branch name and press the enter key:
-    +
-    [.console-input]
-    [source,text]
-    ----
-    new-meme
-    ----
+    * Enter the follwoing branch name and press the enter key: `new-meme`
     * Click the green *Switch to branch* button when promoted.
 . Use the following image as a guide for completing the prior steps:
 +
