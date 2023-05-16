@@ -329,14 +329,17 @@
 <p>Navigate to the Argo CD dashboard.</p>
 </li>
 <li>
-<p>Click the <strong>New App</strong> button.</p>
+<p>Click the <strong>New App</strong> button. An overlay will appear.</p>
+</li>
+<li>
+<p>Switch to the YAML editor in the overlay using the <strong>Edit as YAML</strong> button.</p>
 </li>
 <li>
 <p>Fill in the form with the following information:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Application Name: <code>random-meme-dev</code></p>
+<p>Application Name: <code>random-meme-dev</code> (Using any other value will result in an error. Feel free to try a different value to see what happens!)</p>
 </li>
 <li>
 <p>Project: <code>project-foo-dev</code></p>
@@ -351,7 +354,7 @@
 <p>Self Heal: <code>Enabled</code></p>
 </li>
 <li>
-<p>Repository URL: <code><a href="https://github.com/%USERID%/rht-summit-2023-sample-application" class="bare">https://github.com/%USERID%/rht-summit-2023-sample-application</a></code> (use your repository&#8217;s URL!)</p>
+<p>Repository URL: <code><a href="https://github.com/%USERID%/rht-summit-2023-sample-application" class="bare">https://github.com/%USERID%/rht-summit-2023-sample-application</a></code></p>
 </li>
 <li>
 <p>Path: <code>k8s/overlays/development</code></p>
@@ -377,7 +380,7 @@
 </ol>
 </div>
 <div class="paragraph">
-<p>The Application creation should be a success, and a new <strong>random-meme</strong> Application tile should be shown in the Argo CD dashboard. Clicking on the tile reveals the Application details. It should have synchronised successfully.</p>
+<p>The Application creation should be a success, and a new <strong>random-meme-dev</strong> Application tile should be shown in the Argo CD dashboard. Clicking on the tile reveals the Application details. It should have synchronised successfully.</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="_images/ex8.argocd-random-meme-application.png" alt="ex8.argocd random meme application"></span></p>

@@ -232,7 +232,13 @@
 <p>Select <strong>Create new branch</strong> in the popup that appears.</p>
 </li>
 <li>
-<p>Enter the branch name <code>new-meme</code> and press the enter key.</p>
+<p>Enter the follwoing branch name and press the enter key:
++
+[.console-input]
+[source,text]
+----
+new-meme
+----</p>
 </li>
 <li>
 <p>Click the green <strong>Switch to branch</strong> button when promoted.</p>
@@ -248,11 +254,11 @@
 </li>
 <li>
 <p>Add a new image to the <em>k8s/overlays/development/config-map.yaml</em> file. You can use the URL of any image that you like.</p>
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -267,7 +273,7 @@
 <p>Select the <strong>Source Control</strong> view from the side-menu.</p>
 </li>
 <li>
-<p>Enter a commit message and push your change.</p>
+<p>Enter a commit message and push your change using the <strong>Commit &amp; Push</strong> button.</p>
 <div class="paragraph">
 <p><span class="image"><img src="_images/ex8.gh-diff-commit.png" alt="ex8.gh diff commit"></span></p>
 </div>
@@ -285,7 +291,7 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>It&#8217;s common to use a <a href="https://trunkbaseddevelopment.com/">trunk-based development model</a> with Argo CD. That&#8217;s why your pull request targets the <code>main</code> branch, and not a <code>development</code> or <code>staging</code> branch. The <em>k8s/overlays</em> directory contains a unique configuration for each environment. Since the application is containerised, each of the <em>k8s/overlays</em> (i.e environments) can be updated to point to a specific container image tag etc.</p>
+<p>It&#8217;s common to use a <a href="https://trunkbaseddevelopment.com/">trunk-based development model</a> with Argo CD. That&#8217;s why your pull request will target the <code>main</code> branch, and not a <code>development</code> or <code>staging</code> branch. The <em>k8s/overlays</em> directory contains a unique configuration for each environment. Since the application is containerised, each of the <em>k8s/overlays</em> (i.e environments) can be updated to point to a specific container image tag. This alleviates the need to have branches with varying configurations that result in tedious Git merges at a later point in time.</p>
 </div>
 </td>
 </tr>
@@ -310,12 +316,12 @@
 </li>
 <li>
 <p>Approve the pending checks if prompted, then wait for them to complete.</p>
+</li>
+<li>
+<p>Do not merge the pull request yet!</p>
 <div class="paragraph">
 <p><span class="image"><img src="_images/ex8.gh-pr-open.png" alt="ex8.gh pr open"></span></p>
 </div>
-</li>
-<li>
-<p>Do not merge the pull request yet.</p>
 </li>
 </ol>
 </div>
