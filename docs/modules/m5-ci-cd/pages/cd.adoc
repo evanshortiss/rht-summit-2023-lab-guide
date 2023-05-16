@@ -22,7 +22,7 @@ You can use the *Refresh* button in Argo CD to force it to check the Git reposit
 
 image:ex8.argo-post-merge.png[]
 
-Once your new commit has been synchronised by Argo CD, your meme will be available to view. Follow the steps from the *Test the Containerised Application* to find the URL for your application. Refresh the page a few times and your meme will eventually be shown, all with zero downtime or manual processes beyond approving a pull request! 
+Once your new commit has been synchronised by Argo CD, your meme can be displayed by visiting your application's URL. Refresh the page a few times and your meme will eventually be shown, all with zero downtime or manual processes beyond approving a pull request! 
 
 You can further confirm that the new ConfigMap has been synchronised by:
 

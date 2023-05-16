@@ -52,14 +52,15 @@ image:ex8.gh-use-template.png[]
 rht-summit-2023-sample-application
 ----
 . Navigate to the Argo CD dashboard.
-. Click the *New App* button. 
+. Click the *New App* button. An overlay will appear.
+. Switch to the YAML editor in the overlay using the *Edit as YAML* button.
 . Fill in the form with the following information:
-    * Application Name: `random-meme-dev`
+    * Application Name: `random-meme-dev` (Using any other value will result in an error. Feel free to try a different value to see what happens!)
     * Project: `project-foo-dev`
     * Sync Policy: `Automatic`
     * Prune Resources: `Enabled`
     * Self Heal: `Enabled`
-    * Repository URL: `https://github.com/%USERID%/rht-summit-2023-sample-application` (use your repository's URL!)
+    * Repository URL: `https://github.com/%USERID%/rht-summit-2023-sample-application`
     * Path: `k8s/overlays/development`
     * Cluster URL: `https://kubernetes.default.svc`
     * Namespace: `project-memes-dev` (Using any other value will result in an error. Feel free to try a different value to see what happens!)
@@ -68,7 +69,7 @@ rht-summit-2023-sample-application
 image:ex8.argocd-application-yaml.png[]
 . Click the *Create* button.
 
-The Application creation should be a success, and a new *random-meme* Application tile should be shown in the Argo CD dashboard. Clicking on the tile reveals the Application details. It should have synchronised successfully.
+The Application creation should be a success, and a new *random-meme-dev* Application tile should be shown in the Argo CD dashboard. Clicking on the tile reveals the Application details. It should have synchronised successfully.
 
 image:ex8.argocd-random-meme-application.png[]
 

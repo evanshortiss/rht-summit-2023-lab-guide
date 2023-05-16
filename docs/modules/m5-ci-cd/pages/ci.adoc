@@ -7,19 +7,25 @@ Nice work on getting the application deployed on OpenShift! Now you'll make a ch
 . Once the GitHub IDE has loaded:
     * Click the branch name (`main` by default) in the bottom left.
     * Select *Create new branch* in the popup that appears.
-    * Enter the branch name `new-meme` and press the enter key.
+    * Enter the follwoing branch name and press the enter key:
+    +
+    [.console-input]
+    [source,text]
+    ----
+    new-meme
+    ----
     * Click the green *Switch to branch* button when promoted.
 . Use the following image as a guide for completing the prior steps:
 +
 image:ex8.gh-new-branch.png[]
 . Add a new image to the _k8s/overlays/development/config-map.yaml_ file. You can use the URL of any image that you like.
 +
-[NOTE]
+[IMPORTANT]
 ====
 The URL of the image must resolve to an image file, and not a page that contains the image. If the URL ends in an extension such as `.png` or `.jpg` then it'll likely resolve directly to an image.
 ====
 . Select the *Source Control* view from the side-menu.
-. Enter a commit message and push your change. 
+. Enter a commit message and push your change using the *Commit & Push* button. 
 +
 image:ex8.gh-diff-commit.png[]
 
@@ -27,7 +33,7 @@ This new branch can be used to create a pull request. Creating the pull request 
 
 [NOTE]
 ====
-It's common to use a https://trunkbaseddevelopment.com/[trunk-based development model] with Argo CD. That's why your pull request targets the `main` branch, and not a `development` or `staging` branch. The _k8s/overlays_ directory contains a unique configuration for each environment. Since the application is containerised, each of the _k8s/overlays_ (i.e environments) can be updated to point to a specific container image tag etc.
+It's common to use a https://trunkbaseddevelopment.com/[trunk-based development model] with Argo CD. That's why your pull request will target the `main` branch, and not a `development` or `staging` branch. The _k8s/overlays_ directory contains a unique configuration for each environment. Since the application is containerised, each of the _k8s/overlays_ (i.e environments) can be updated to point to a specific container image tag. This alleviates the need to have branches with varying configurations that result in tedious Git merges at a later point in time.
 ====
 
 . Return to *your copy* of the https://github.com/evanshortiss/rht-summit-2023-sample-application[random-meme application repository].
@@ -37,9 +43,9 @@ image:ex8.gh-pr-notice.png[]
 . Click on the *Compare & pull request* button.
 . On the *Open a pull request* screen, scroll down and click the *Create pull request* button.
 . Approve the pending checks if prompted, then wait for them to complete.
+. Do not merge the pull request yet!
 +
 image:ex8.gh-pr-open.png[]
-. Do not merge the pull request yet.
 
 
 If the CI check fails, it most likely means that a URL you added to the ConfigMap doesn't resolve to an image or there's a syntax error in the JSON array in the ConfigMap. Make sure that your chosen URL returns an image and *not a page that contains an image* since that will fail the CI check. Another thing to be aware of is to make sure the image URL in the ConfigMap is surrounded by quotes, and that you haven't misplaced a comma.
