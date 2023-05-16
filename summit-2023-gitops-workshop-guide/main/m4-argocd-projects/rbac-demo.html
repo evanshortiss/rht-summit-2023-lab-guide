@@ -157,6 +157,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Five: Continuous Delivery of an Application</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/deploy.html">Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/ci.html">Continuous Integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/cd.html">Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -204,7 +219,7 @@
 <p>👨‍💻 <em>Role: Cluster Administrator and/or Developers</em></p>
 </div>
 <div class="paragraph">
-<p>Argo CD has a <code>default</code> project configured out of the box. This was fine for managing the cluster-scoped resources you&#8217;ve created so far, but separate projects are required if you want to create structured teams and environments, and enforce RBAC for Argo CD users.</p>
+<p>Argo CD has a <code>default</code> project configured out of the box. You&#8217;ve been creating your Applications in this Project to manage the cluster-scoped resources you&#8217;ve created so far, but separate projects are recommended if you want to create structured teams and environments, and enforce RBAC for Argo CD users.</p>
 </div>
 <div class="paragraph">
 <p>In this module you&#8217;ll learn how to manage user groups in OpenShift, and how to manage projects and RBAC in Argo CD.</p>
@@ -215,7 +230,7 @@
 <h2 id="_login_to_argo_cd_as_a_non_admin_user"><a class="anchor" href="#_login_to_argo_cd_as_a_non_admin_user"></a>Login to Argo CD as a Non-Admin User</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>So far you&#8217;ve been using the <code>admin</code> user to interact with Argo CD. Try using the user <code>foo</code> instead:</p>
+<p>So far you&#8217;ve been using the Argo CD <code>admin</code> user to interact with Argo CD. Try using logging in via OAuth as the <code>foo</code> user instead:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -229,7 +244,7 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>You can start a private browser session using <strong>File &gt; New Incognito Window</strong> or <strong>File &gt; New Private Window</strong>. It will vary depending on your web browser of choice.</p>
+<p>You can start a private browser session using <strong>File &gt; New Incognito Window</strong> or <strong>File &gt; New Private Window</strong>. It will vary depending on your web browser of choice. You could also use a different browser, i.e if you&#8217;ve been using Chrome so far, use Firefox to login as the <code>foo</code> user.</p>
 </div>
 </td>
 </tr>
@@ -328,7 +343,7 @@
 <div class="paragraph">
 <p>In short, the <code>foo</code> user was automatically granted a <code>readonly</code> role. You can confirm this by using the <strong>OpenShift Web Terminal</strong> (in your other browser session as the <code>opentlc-mgr</code> user) to view the Argo CD RBAC configuration/policies:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get cm argocd-rbac-cm -o yaml -n openshift-gitops</code></pre>
 </div>
@@ -339,10 +354,10 @@
 <h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now that you&#8217;ve seen that Argo CD enforces RBAC, you&#8217;ll need to create new Projects and grant OpenShift users access to them. This involves associating users in specific <a href="https://docs.openshift.com/container-platform/4.12/rest_api/user_and_group_apis/group-user-openshift-io-v1.html">Groups</a> with policies defined in the Argo CD Project.</p>
+<p>Now that you&#8217;ve seen that Argo CD enforces RBAC, you&#8217;ll need to create new Projects and grant OpenShift users access to them. This involves associating users in specific <a href="https://docs.openshift.com/container-platform/4.12/rest_api/user_and_group_apis/group-user-openshift-io-v1.html" target="_blank" rel="noopener">Groups</a> with policies defined in the Argo CD Project.</p>
 </div>
 <div class="paragraph">
-<p>As you might have guessed, this requires defining some more YAML resources and will be managed with another Argo CD application. You might be starting to think that it&#8217;s tedious to set up each Application one-by-one. In the next section you&#8217;ll learn how to use the <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/">App of Apps Pattern</a> to bootstrap your cluster with all your Applications.</p>
+<p>As you might have guessed, this requires defining some more YAML resources and will be managed with another Argo CD application. You might be starting to think that it&#8217;s tedious to set up each Application one-by-one. In the next section you&#8217;ll learn how to use the <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/" target="_blank" rel="noopener">App of Apps Pattern</a> to bootstrap your cluster with all your Applications.</p>
 </div>
 </div>
 </div>

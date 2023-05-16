@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Getting Setup for Success :: Summit 2023 - GitOps Workshop Guide</title>
-    <link rel="prev" href="intro.html">
-    <link rel="next" href="../m2-argocd-introduction/accessing-argocd.html">
+    <title>Continuous Delivery of an Application :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="prev" href="../m4-argocd-projects/verify-rbac.html">
+    <link rel="next" href="ci.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
@@ -95,17 +95,17 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
+    <h3 class="title"><a href="../m1-overview/intro.html" class=" query-params-link">Summit 2023 - GitOps Workshop Guide</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Module One: Overview &amp; Setup</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="intro.html">Introduction</a>
+    <a class="nav-link" href="../m1-overview/intro.html">Introduction</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="setup.html">Setup</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m1-overview/setup.html">Setup</a>
   </li>
 </ul>
   </li>
@@ -161,14 +161,14 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Module Five: Continuous Delivery of an Application</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../m5-ci-cd/deploy.html">Setup</a>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="deploy.html">Setup</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../m5-ci-cd/ci.html">Continuous Integration</a>
+    <a class="nav-link" href="ci.html">Continuous Integration</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../m5-ci-cd/cd.html">Continuous Delivery</a>
+    <a class="nav-link" href="cd.html">Continuous Delivery</a>
   </li>
 </ul>
   </li>
@@ -185,7 +185,7 @@
       <span class="title">Summit 2023 - GitOps Workshop Guide</span>
       <ul class="versions">
         <li class="version is-current">
-          <a href="intro.html">main</a>
+          <a href="../m1-overview/intro.html">main</a>
         </li>
       </ul>
     </li>
@@ -197,253 +197,235 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="intro.html" class="home-link"></a>
+  <a href="../m1-overview/intro.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
-    <li>Module One: Overview &amp; Setup</li>
-    <li><a href="setup.html">Setup</a></li>
+    <li><a href="../m1-overview/intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
+    <li>Module Five: Continuous Delivery of an Application</li>
+    <li><a href="deploy.html">Setup</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m1-overview/pages/setup.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m5-ci-cd/pages/deploy.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Getting Setup for Success</h1>
+<h1 class="page">Continuous Delivery of an Application</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>⏱️ <em>Estimated Time: 5 Minutes</em></p>
+<p>⏱️ <em>Estimated Time: 15 Minutes</em></p>
 </div>
 <div class="paragraph">
-<p>There are two key resources you will be using in this workshop:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>An OpenShift cluster with the OpenShift GitOps operator pre-installed.</p>
-</li>
-<li>
-<p>Your own copy of the workshop Git repository.</p>
-</li>
-</ul>
+<p>👨‍💻 <em>Role: Developer</em></p>
 </div>
 <div class="paragraph">
-<p>The next two sections will walk you through getting access to these resources.</p>
+<p>The moment of truth! Time to stretch your developer legs as the <code>foo</code> user, and have Argo CD continuously deploy an application of yours into the development environment that was setup in prior sections.</p>
+</div>
+<div class="paragraph">
+<p>In this section you&#8217;re no longer acting as a cluster administrator, but are instead acting playing the role of the <code>foo</code> developer that you&#8217;ve been configuring access for up to this point.</p>
+</div>
+<div class="paragraph">
+<p>For this section of the workshop you&#8217;ll be using <a href="https://github.com/evanshortiss/rht-summit-2023-sample-application">this repository on GitHub</a>. The linked repository contains a simple web application that renders a web page containing a randomly chosen meme. The repository also contains a set of resources in the <em>k8s/</em> directory that will be used to deploy the application on OpenShift. You&#8217;re going to deploy this application into the <code>project-memes-dev</code> namespace, then make an update to the application Git repository that runs a CI pipeline, and observe how Argo CD detects the new changes and automatically deploys them to complete the CI/CD flow.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Separating the OpenShift/Kubernetes resources and source code for an application into separate repositories is a common approach. To reduce the number of repositories you need to manage this workshop has placed both the source code and OpenShift/Kubernetes resources in this one repository.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_copying_the_workshop_repository_on_github"><a class="anchor" href="#_copying_the_workshop_repository_on_github"></a>Copying the Workshop Repository on GitHub</h2>
+<h2 id="_login_to_argo_cd_as_a_developer_user"><a class="anchor" href="#_login_to_argo_cd_as_a_developer_user"></a>Login to Argo CD as a Developer User</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You&#8217;ll need a GitHub account to complete this step. If you don&#8217;t have one, go ahead and sign-up at <a href="https://github.com">github.com</a>, then complete these steps:</p>
+<p>If you&#8217;re not already logged into the Argo CD dashboard as the <code>foo</code> user:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Login to <a href="https://github.com">github.com</a>.</p>
+<p>Login to the OpenShift Web Console using the following steps:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Select the <strong>standard-users</strong> provider.</p>
 </li>
 <li>
-<p>Visit the workshop repository at: <a href="https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt">github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt</a></p>
+<p>Use the username: <code>foo</code>.</p>
 </li>
 <li>
-<p>Click the <strong>Use this template</strong> button in the upper-right corner of the Git repository. A list of options will be displayed.</p>
+<p>Use the password: <code>foopassword</code>.</p>
 </li>
 <li>
-<p>Select the <strong>Create a new repository</strong> option.</p>
+<p>Click the <strong>Log in</strong> button.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Use the following value for the the <strong>Repository name</strong> field:</p>
+<p>Expand the <strong>Application Launcher</strong> icon (3x3 sqaure) in the top-right of the OpenShift Web Console.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ex6.openshift-ui-argo-link.png" alt="ex6.openshift ui argo link">
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>Cluster Argo CD</strong> link. This will open a new browser tab.</p>
+</li>
+<li>
+<p>Accept the self-signed certificate warning if one appears. The login page will now appear.</p>
+</li>
+<li>
+<p>Click the <strong>Log in via OpenShift</strong> button.</p>
+</li>
+<li>
+<p>Login using the same <strong>standard-users</strong> identity provider, the <code>foo</code> username, and the <code>foopassword</code> password you used previously.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_the_random_meme_application"><a class="anchor" href="#_create_the_random_meme_application"></a>Create the Random Meme Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>foo</code> user now has permission to create an Application that targets the <code>project-memes-dev</code> Namespace in the <code>in-cluster</code> destination. You observed this in the prior exercise by viewing the <code>project-memes</code> in the <strong>Projects</strong> section in the <strong>Settings</strong> screen.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex8.argocd-project-settings.png" alt="ex8.argocd project settings"></span></p>
+</div>
+<div class="paragraph">
+<p>Create an Argo CD Application to manage your containerised random meme web application:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Visit the <a href="https://github.com/evanshortiss/rht-summit-2023-sample-application">random-meme application repository</a>.</p>
+</li>
+<li>
+<p>Click the <strong>Use this template</strong> button, and select <strong>Create a new repository</strong> from the list of options that are displayed.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex8.gh-use-template.png" alt="ex8.gh use template"></span></p>
+</div>
+</li>
+<li>
+<p>Enter the following as the <strong>Repository Name</strong>.</p>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">rht-summit-2023-gitops-cluster-mgmt</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">rht-summit-2023-sample-application</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Click the <strong>Create repository from template</strong> button.</p>
-</li>
-</ol>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You&#8217;ll be asked to use this repository throughout the workshop. Make sure to always use <strong>your copy</strong>, and <strong>not</strong> the original one owned by <em>evanshortiss</em> on GitHub!</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Ensure your copy of the repository is linked to in subsequent sections of this guide:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Enter your GitHub username or the name of the organisation you copied the template repository to in the top-right corner of this guide.</p>
-<div class="imageblock">
-<div class="content">
-<img src="_images/ex1.set-gh-username.png" alt="ex1.set gh username">
-</div>
-</div>
+<p>Navigate to the Argo CD dashboard.</p>
 </li>
 <li>
-<p>Press the enter key once you&#8217;ve entered the username or organisation name. The field UI will reload and show your username.</p>
-<div class="imageblock">
-<div class="content">
-<img src="_images/ex1.gh-user-set.png" alt="ex1.gh user set">
-</div>
-</div>
+<p>Click the <strong>New App</strong> button.</p>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>You should now have a copy of the repository at a unique URL of your own at <code><a href="https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt" class="bare">https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt</a></code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_access_your_openshift_cluster"><a class="anchor" href="#_access_your_openshift_cluster"></a>Access your OpenShift Cluster</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You&#8217;ll be using your own OpenShift cluster throughout this workshop. Your cluster is pre-configured with the <strong>OpenShift Web Terminal</strong> and <strong>Red Hat OpenShift GitOps</strong> Operators. You can think of Operators as addons to an OpenShift or Kubernetes cluster that provide it with extended features/capabilities:</p>
-</div>
+<li>
+<p>Fill in the form with the following information:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The <strong>Web Terminal</strong> makes it easy to use pre-authenticated command-line tools (CLIs) to interact with the OpenShift APIs directly from the <strong>OpenShift Web Console</strong> in your web browser.</p>
+<p>Application Name: <code>random-meme-dev</code></p>
 </li>
 <li>
-<p>Pre-installing the <strong>Red Hat OpenShift GitOps</strong> operator saved a few minutes of time so you can fully focus on actually learning about GitOps instead of setting it up!</p>
+<p>Project: <code>project-foo-dev</code></p>
+</li>
+<li>
+<p>Sync Policy: <code>Automatic</code></p>
+</li>
+<li>
+<p>Prune Resources: <code>Enabled</code></p>
+</li>
+<li>
+<p>Self Heal: <code>Enabled</code></p>
+</li>
+<li>
+<p>Repository URL: <code><a href="https://github.com/%USERID%/rht-summit-2023-sample-application" class="bare">https://github.com/%USERID%/rht-summit-2023-sample-application</a></code> (use your repository&#8217;s URL!)</p>
+</li>
+<li>
+<p>Path: <code>k8s/overlays/development</code></p>
+</li>
+<li>
+<p>Cluster URL: <code><a href="https://kubernetes.default.svc" class="bare">https://kubernetes.default.svc</a></code></p>
+</li>
+<li>
+<p>Namespace: <code>project-memes-dev</code> (Using any other value will result in an error. Feel free to try a different value to see what happens!)</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>To retrieve your cluster&#8217;s information:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Visit the unique work URL provided by the workshop administrator(s).</p>
 </li>
 <li>
-<p>Enter your email address and the password provided by the workshop administrator(s).</p>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
+<p>After filling out these details you can switch to the YAML view and confirm that it matches this screenshot:</p>
 <div class="paragraph">
-<p>Use your actual email address. This is so you can use the same email and password again to access your cluster information if you lose access, or forget the cluster details.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/ex1.demo-redhat-login.png" alt="ex1.demo redhat login"></span></p>
+<p><span class="image"><img src="_images/ex8.argocd-application-yaml.png" alt="ex8.argocd application yaml"></span></p>
 </div>
 </li>
 <li>
-<p>Click the <strong>Access this workshop</strong> button.</p>
-</li>
-<li>
-<p>Your unique environment details will be displayed.</p>
+<p>Click the <strong>Create</strong> button.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>The <strong>OpenShift Console</strong> and user marked a <strong>cluster admin</strong> are the two pieces of information you&#8217;ll need to access your cluster.</p>
+<p>The Application creation should be a success, and a new <strong>random-meme</strong> Application tile should be shown in the Argo CD dashboard. Clicking on the tile reveals the Application details. It should have synchronised successfully.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="_images/ex1-demo-redhat-cluster-deets.png" alt="ex1 demo redhat cluster deets"></span></p>
-</div>
-<div class="paragraph">
-<p>To access your OpenShift cluster&#8217;s <strong>Web Console</strong>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Visit the cluster URL in a web browser, and select the <strong>htpasswd_provider</strong> login option when prompted.</p>
-<div class="paragraph">
-<p><span class="image"><img src="_images/ex1.openshift-login-screen.png" alt="ex1.openshift login screen"></span></p>
-</div>
-</li>
-<li>
-<p>Login to your OpenShift cluster using the username and password provided by <a href="https://demo.redhat.com">demo.redhat.com</a>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The <strong>Overview</strong> page of the OpenShift Web Console is displayed after a successful login. From here you can perform both administrative and developer-focused tasks.</p>
+<p><span class="image"><img src="_images/ex8.argocd-random-meme-application.png" alt="ex8.argocd random meme application"></span></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_access_the_openshift_web_terminal"><a class="anchor" href="#_access_the_openshift_web_terminal"></a>Access the OpenShift Web Terminal</h2>
+<h2 id="_test_the_containerised_application"><a class="anchor" href="#_test_the_containerised_application"></a>Test the Containerised Application</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>From the OpenShift Web Console you just accessed:</p>
+<p>Now that your containerised application has been deployed, go see what it does!</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Verify that a terminal icon <strong>&gt;_</strong> is shown in the top-right corner of the OpenShift Web Console.</p>
+<p>Return to the OpenShift Web Console. Log in as either <code>foo</code> or <code>opentlc-mgr</code> user.</p>
 </li>
 <li>
-<p>Click the terminal icon. A new UI element will appear, and prepare a terminal session.</p>
+<p>Switch to the <strong>Developer</strong> perspective using the <strong>Perspective Switcher</strong>.</p>
 </li>
 <li>
-<p>Once the terminal session is ready type the <code>help</code> command, and press enter. This will display the pre-installed CLIs that are available in this wokshop environment.</p>
+<p>Click the <strong>Topology</strong> link in the side-menu.</p>
+</li>
+<li>
+<p>Select the <code>project-memes-dev</code> from the <strong>Project</strong> dropdown.</p>
+</li>
+<li>
+<p>Click on the Node.js application in the topology. The application&#8217;s details will appear on the right.</p>
 <div class="paragraph">
-<p><span class="image"><img src="_images/ex1.web-terminal.png" alt="ex1.web terminal"></span></p>
+<p><span class="image"><img src="_images/ex8.openshift-topology.png" alt="ex8.openshift topology"></span></p>
 </div>
 </li>
 <li>
-<p>Run the <code>oc whoami</code> command in the Web Terminal and verify that the output is the same as the username you used to login to the OpenShift Web Console.</p>
-</li>
-<li>
-<p>Run the <code>oc project openshift-gitops</code> and <code>oc get pods</code> (or <code>kubectl get pods</code>) commands to change context to the pre-configured <code>openshift-gitops</code> namespace, and confirm the <strong>OpenShift GitOps</strong> components all display a status of <strong>Running</strong>.</p>
+<p>Scroll down and click on the URL in the <strong>Routes</strong> section. A new browser tab will open and display a meme.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex8.random-meme.png" alt="ex8.random meme"></span></p>
+</div>
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Nice work, you&#8217;ve successfully:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Created a repository that will hold your cluster and application manifests.</p>
-</li>
-<li>
-<p>Signed into your OpenShift cluster.</p>
-</li>
-<li>
-<p>Learned how to access and use the OpenShift Web Terminal.</p>
-</li>
-<li>
-<p>Used the <code>oc</code> and <code>kubectl</code> CLIs to interact with resources on your cluster.</p>
-</li>
-</ol>
+<p>Excellent, you&#8217;ve just deployed a containerised application using Argo CD!</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="intro.html" class="query-params-link">Introduction</a></span>
-  <span class="next"><a href="../m2-argocd-introduction/accessing-argocd.html" class="query-params-link">Accessing the Cluster GitOps Dashboard</a></span>
+  <span class="prev"><a href="../m4-argocd-projects/verify-rbac.html" class="query-params-link">Verify &amp; Understand your Work</a></span>
+  <span class="next"><a href="ci.html" class="query-params-link">Continuous Integration</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

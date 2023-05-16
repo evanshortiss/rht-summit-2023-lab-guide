@@ -157,6 +157,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Five: Continuous Delivery of an Application</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/deploy.html">Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/ci.html">Continuous Integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/cd.html">Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -233,10 +248,10 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Navigate to your copy of the GitHub repository and open the <em>managed-namespaces/base</em> folder.</p>
+<p>Navigate to the <em><a href="https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/managed-namespaces/base" target="_blank" rel="noopener">managed-namespaces/base</a></em> folder in your repository.</p>
 </li>
 <li>
-<p>Take a look at the <em>namespace.yaml</em> and <em>resource-quota.yaml</em> files. These are resources that can be applied to a Kubernetes/OpenShift cluster.</p>
+<p>View the contents of the <em>namespace.yaml</em> and <em>resource-quota.yaml</em> files. These are resources that can be applied to a Kubernetes/OpenShift cluster.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -245,7 +260,7 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <code>argocd.argoproj.io/sync-wave</code> annotations on the YAML resources control the order in which they will be applied by Argo CD. This concept is known as <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/">Sync Waves</a>. Utilising Sync Waves is important, since the Namespace needs to exist before other resources can be applied within it.</p>
+<p>The <code>argocd.argoproj.io/sync-wave</code> annotations on the YAML resources control the order in which they will be applied by Argo CD. These annotations are related to a concept known as <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/">Sync Waves</a>. Utilising Sync Waves is important in this example, since the Namespace needs to exist before other resources can be applied within it.</p>
 </div>
 </td>
 </tr>
@@ -253,7 +268,7 @@
 </div>
 </li>
 <li>
-<p>Open the <em>managed-namespaces/base/kustomization.yaml</em> file. This file references the <em>namespace.yaml</em> and <em>resource-quota.yaml</em> files.</p>
+<p>Open the <em><a href="https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/managed-namespaces/base/kustomization.yaml" target="_blank" rel="noopener">managed-namespaces/base/kustomization.yaml</a></em> file. This file references the <em>namespace.yaml</em> and <em>resource-quota.yaml</em> files.</p>
 </li>
 </ol>
 </div>
@@ -266,7 +281,7 @@
 <h2 id="_define_a_namespace_using_overlays"><a class="anchor" href="#_define_a_namespace_using_overlays"></a>Define a Namespace using Overlays</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A Namespace is already defined in the <em>managed-namespaces/overlays/project-memes-dev</em> folder. You&#8217;ll use this as a template to make a second Namespace:</p>
+<p>A Namespace is already defined in the <em><a href="https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/managed-namespaces/overlays/project-memes-dev" target="_blank" rel="noopener">managed-namespaces/overlays/project-memes-dev</a></em> folder. You&#8217;ll use this as a template to make a second Namespace:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -274,7 +289,7 @@
 <p>Navigate to your copy of the GitHub repository.</p>
 </li>
 <li>
-<p>Press the period/dot key to open GitHub&#8217;s web-based text editor.</p>
+<p>Press the period/dot key to open GitHub&#8217;s web-based editor.</p>
 </li>
 <li>
 <p>Create a <strong>folder</strong> named <code>project-memes-prod</code> inside the <em>managed-namespaces/overlays/</em> folder. This folder will contain your Namespace configuration.</p>
@@ -289,7 +304,7 @@
 </li>
 <li>
 <p>Place the following content in <em>managed-namespaces/overlays/project-memes-prod/kustomization.yaml</em>. This will use the base files, but replace the default Namespace value and double the ResourceQuota values:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -325,8 +340,8 @@ patches:
 </div>
 </li>
 <li>
-<p>Edit the <code>kustomization.yaml</code> file in the <em>managed-namespaces/overlays/</em> folder to reference your new Namespace configuration:</p>
-<div class="listingblock">
+<p>Edit the <code>kustomization.yaml</code> file in the <em>managed-namespaces/overlays/</em> folder to reference your new Namespace configuration. It should now look like this:</p>
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bases:
 - ./project-memes-dev

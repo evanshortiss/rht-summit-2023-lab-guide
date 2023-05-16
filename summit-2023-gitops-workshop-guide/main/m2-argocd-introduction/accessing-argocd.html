@@ -157,6 +157,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Five: Continuous Delivery of an Application</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/deploy.html">Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/ci.html">Continuous Integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/cd.html">Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -246,7 +261,7 @@
 </li>
 <li>
 <p>Run the following command to get the Argo CD admin password from the <code>openshift-gitops-cluster</code> <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a>:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get secret openshift-gitops-cluster \
 -o json \
@@ -295,9 +310,6 @@ base64 --decode | xargs echo</code></pre>
 </div>
 </li>
 <li>
-<p>Clicking to <strong>Workloads &gt; Secrets</strong> link in the side-menu.</p>
-</li>
-<li>
 <p>Viewing the <em>openshift-gitops-cluster</em> Secret, and clicking <strong>Reveal Values</strong>.</p>
 </li>
 </ol>
@@ -318,7 +330,7 @@ base64 --decode | xargs echo</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In case you&#8217;re wondering, you can view the <code>openshift-gitops-cluster</code> and other Secrets since you&#8217;re logged in as a user with <em>cluster-admin</em> permissions. By default, new OpenShift users will have limited permissions and will be unable to view resources such as Secrets. RBAC configuration is necessary to grant users access to resources. You&#8217;ll learn more about this in subsequent sections of this lab.</p>
+<p>In case you&#8217;re wondering, you can view the <code>openshift-gitops-cluster</code> and other Secrets since you&#8217;re logged in as a user with <em>cluster-admin</em> permissions. By default, new OpenShift users will have limited permissions and will be unable to view resources such as Secrets. RBAC configuration is necessary to grant users access to resources. You&#8217;ll learn more about this in subsequent sections of this workshop.</p>
 </div>
 </td>
 </tr>

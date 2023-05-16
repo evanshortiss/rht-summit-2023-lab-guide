@@ -157,6 +157,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Five: Continuous Delivery of an Application</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/deploy.html">Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/ci.html">Continuous Integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/cd.html">Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -198,7 +213,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>⏱️ <em>Estimated Time: 5 Minutes</em></p>
+<p>⏱️ <em>Estimated Time: 5-10 Minutes</em></p>
 </div>
 <div class="paragraph">
 <p>👩‍💻 <em>Role: Cluster Administrator</em></p>
@@ -220,10 +235,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Visit <strong>your copy</strong> of the <a href="https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt">lab repository</a> in a web browser.</p>
-</li>
-<li>
-<p>Find and open the <em>etc/console-customisations.application.yaml</em> file.</p>
+<p>View the <em><a href="https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/etc/console-customisations.application.yaml" target="_blank" rel="noopener">etc/console-customisations.application.yaml</a></em> file in <strong>your copy</strong> of the workshop repository.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/ex3.github-ide.png" alt="ex3.github ide">
@@ -266,7 +278,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p>You&#8217;ll use the <em>console-customisations.application.yaml</em> file to create your first Application in Argo CD!</p>
+<p>You&#8217;ll use the <em><a href="https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/etc/console-customisations.application.yaml" target="_blank" rel="noopener">etc/console-customisations.application.yaml</a></em>  file to create your first Application in Argo CD!</p>
 </div>
 </div>
 </div>
@@ -301,6 +313,20 @@
 <div class="content">
 <img src="_images/ex3.argo-dashboard-yaml.png" alt="ex3.argo dashboard yaml">
 </div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Failing to use the correct URL in the YAML will cause issues in subsequent sections. Make sure to replace that <code>REPLACE_ME</code> text with your GitHub username or organisation!</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
@@ -354,22 +380,29 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Visit <strong>your copy</strong> of the <a href="https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt">lab repository</a> in a web browser.</p>
+<p>Visit your copy of the workshop repository at <a href="https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt">github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt</a></p>
 </li>
 <li>
-<p>Press the dot/period key on your keyboard to open the GitHub editor.</p>
+<p>Open the <em>console-customisations/console-notification.welcome-banner.yaml</em> file.</p>
 </li>
 <li>
-<p>Open the <em>console-customisations/console-notification.welcome-banner.yaml</em> in the GitHub editor.</p>
+<p>Click the edit icon in the top-right corner.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex2.gh-file-view.png" alt="ex2.gh file view"></span></p>
+</div>
 </li>
 <li>
 <p>Edit the <code>spec.text</code> to read <code>Fáilte chuig Red Hat Summit 2023!</code>, or a similar message of your choosing.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex2.gh-file-edit.png" alt="ex2.gh file edit"></span></p>
+</div>
 </li>
 <li>
-<p>Use the <strong>Source Control</strong> section (from the icons on the left) of the GitHub editor.</p>
+<p>Click the <strong>Commit Changes&#8230;&#8203;</strong> button in the top-right.</p>
 </li>
 <li>
-<p>Enter a commit message, then click the <strong>Commit &amp; Push</strong> button.</p>
+<p>Enter a commit message, then click the <strong>Commit Changes</strong> button to commit to the <code>main</code> branch.
+<span class="image"><img src="_images/ex2.gh-file-commit.png" alt="ex2.gh file commit"></span></p>
 </li>
 </ol>
 </div>

@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Create your Argo CD Application from a Terminal :: Summit 2023 - GitOps Workshop Guide</title>
-    <link rel="prev" href="kustomize.html">
-    <link rel="next" href="granting-service-account-permission.html">
+    <title>Making a Code Change and Triggering the Continuous Integration (CI) Process :: Summit 2023 - GitOps Workshop Guide</title>
+    <link rel="prev" href="deploy.html">
+    <link rel="next" href="cd.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
@@ -129,16 +129,16 @@
     <span class="nav-text">Module Three: Managing Namespaces &amp; RBAC</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="kustomize.html">Using Kustomize for Templating YAML</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="create-applications-using-kubectl.html">Create Applications using the CLI</a>
+    <a class="nav-link" href="../m3-managing-namespaces/kustomize.html">Using Kustomize for Templating YAML</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+    <a class="nav-link" href="../m3-managing-namespaces/create-applications-using-kubectl.html">Create Applications using the CLI</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="rbac-for-namespaces.html">RBAC for Namespaces</a>
+    <a class="nav-link" href="../m3-managing-namespaces/granting-service-account-permission.html">Argo CD Service Account Permissions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m3-managing-namespaces/rbac-for-namespaces.html">RBAC for Namespaces</a>
   </li>
 </ul>
   </li>
@@ -162,13 +162,13 @@
     <span class="nav-text">Module Five: Continuous Delivery of an Application</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../m5-ci-cd/deploy.html">Setup</a>
+    <a class="nav-link" href="deploy.html">Setup</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="ci.html">Continuous Integration</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../m5-ci-cd/ci.html">Continuous Integration</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../m5-ci-cd/cd.html">Continuous Delivery</a>
+    <a class="nav-link" href="cd.html">Continuous Delivery</a>
   </li>
 </ul>
   </li>
@@ -201,23 +201,81 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../m1-overview/intro.html">Summit 2023 - GitOps Workshop Guide</a></li>
-    <li>Module Three: Managing Namespaces &amp; RBAC</li>
-    <li><a href="create-applications-using-kubectl.html">Create Applications using the CLI</a></li>
+    <li>Module Five: Continuous Delivery of an Application</li>
+    <li><a href="ci.html">Continuous Integration</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m3-managing-namespaces/pages/create-applications-using-kubectl.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/evanshortiss/rht-summit-2023-lab-guide/edit/main/docs/modules/m5-ci-cd/pages/ci.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Create your Argo CD Application from a Terminal</h1>
+<h1 class="page">Making a Code Change and Triggering the Continuous Integration (CI) Process</h1>
 <div class="paragraph">
-<p>⏱️ <em>Estimated Time: 3 Minutes</em></p>
+<p>Nice work on getting the application deployed on OpenShift! Now you&#8217;ll make a change to the application&#8217;s dev environment configuration, verify it passes CI, merge the change into the <code>main</code> branch and watch as Argo CD detects and applies the new change.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Head over to your copy of the random-meme application repository: <a href="https://github.com/%USERID%/rht-summit-2023-sample-application">github.com/%USERID%/rht-summit-2023-sample-application</a>.</p>
+</li>
+<li>
+<p>Use the period/dot key as a shortcut to open the GitHub IDE.</p>
+</li>
+<li>
+<p>Once the GitHub IDE has loaded:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Click the branch name (<code>main</code> by default) in the bottom left.</p>
+</li>
+<li>
+<p>Select <strong>Create new branch</strong> in the popup that appears.</p>
+</li>
+<li>
+<p>Enter the branch name <code>new-meme</code> and press the enter key.</p>
+</li>
+<li>
+<p>Click the green <strong>Switch to branch</strong> button when promoted.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use the following image as a guide for completing the prior steps:</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex8.gh-new-branch.png" alt="ex8.gh new branch"></span></p>
+</div>
+</li>
+<li>
+<p>Add a new image to the <em>k8s/overlays/development/config-map.yaml</em> file. You can use the URL of any image that you like.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The URL of the image must resolve to an image file, and not a page that contains the image. If the URL ends in an extension such as <code>.png</code> or <code>.jpg</code> then it&#8217;ll likely resolve directly to an image.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Select the <strong>Source Control</strong> view from the side-menu.</p>
+</li>
+<li>
+<p>Enter a commit message and push your change.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex8.gh-diff-commit.png" alt="ex8.gh diff commit"></span></p>
+</div>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>👨‍💻 <em>Role: Cluster Administrator</em></p>
-</div>
-<div class="paragraph">
-<p>You&#8217;ll create the new Argo CD Application by passing the Application YAML to either the <code>oc</code> or <code>kubectl</code> CLI:</p>
+<p>This new branch can be used to create a pull request. Creating the pull request will invoke a CI process, after which the code change can be merged to the <code>main</code> branch.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -227,7 +285,7 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Are you wondering why we use the CLI instead of the UI this time? It&#8217;s because it&#8217;s good to be aware of the options available to you!</p>
+<p>It&#8217;s common to use a <a href="https://trunkbaseddevelopment.com/">trunk-based development model</a> with Argo CD. That&#8217;s why your pull request targets the <code>main</code> branch, and not a <code>development</code> or <code>staging</code> branch. The <em>k8s/overlays</em> directory contains a unique configuration for each environment. Since the application is containerised, each of the <em>k8s/overlays</em> (i.e environments) can be updated to point to a specific container image tag etc.</p>
 </div>
 </td>
 </tr>
@@ -236,47 +294,40 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Login to your OpenShift Web Console.</p>
+<p>Return to <strong>your copy</strong> of the <a href="https://github.com/evanshortiss/rht-summit-2023-sample-application">random-meme application repository</a>.</p>
 </li>
 <li>
-<p>Open the Web Terminal using the <strong>&gt;_</strong> icon in the top-right corner of the OpenShift Web Console.</p>
-</li>
-<li>
-<p>Execute the following commands to create your Argo CD Application that will create and manage your Namespace.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export GITHUB_USERNAME=%USERID%
-export GITHUB_URL="https://raw.githubusercontent.com/$GITHUB_USERNAME/rht-summit-2023-gitops-cluster-mgmt/main/etc/managed-namesapces.application.yaml"
-
-oc apply -f $GITHUB_URL -n openshift-gitops</code></pre>
-</div>
+<p>It should display a message that your <code>new-meme</code> branch had changes, and it suggests opening a pull request.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex8.gh-pr-notice.png" alt="ex8.gh pr notice"></span></p>
 </div>
 </li>
 <li>
-<p>Open the Argo CD dashboard. It should report that the <strong>managed-namespaces</strong> application is "OutOfSync".</p>
+<p>Click on the <strong>Compare &amp; pull request</strong> button.</p>
 </li>
 <li>
-<p>Select the <strong>managed-namespaces</strong> Application tile.</p>
-<div class="imageblock">
-<div class="content">
-<img src="_images/ex4.argocd-out-of-sync.png" alt="ex4.argocd out of sync">
-</div>
+<p>On the <strong>Open a pull request</strong> screen, scroll down and click the <strong>Create pull request</strong> button.</p>
+</li>
+<li>
+<p>Approve the pending checks if prompted, then wait for them to complete.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/ex8.gh-pr-open.png" alt="ex8.gh pr open"></span></p>
 </div>
 </li>
 <li>
-<p>Click the <strong>Sync Status</strong> button to reveal a detailed error message.</p>
+<p>Do not merge the pull request yet.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>The synchronisation failed because the <a href="https://kubernetes.io/docs/concepts/security/service-accounts/">Service Account</a> used by Argo CD to communicate the the Kubernetes/OpenShift API doesn&#8217;t have the necessary permissions to manage ResourceQuotas and LimitRanges.</p>
+<p>If the CI check fails, it most likely means that a URL you added to the ConfigMap doesn&#8217;t resolve to an image or there&#8217;s a syntax error in the JSON array in the ConfigMap. Make sure that your chosen URL returns an image and <strong>not a page that contains an image</strong> since that will fail the CI check. Another thing to be aware of is to make sure the image URL in the ConfigMap is surrounded by quotes, and that you haven&#8217;t misplaced a comma.</p>
 </div>
 <div class="paragraph">
-<p>This class of error can be addressed by explicitly granting the Argo CD Service Account the required permissions to manage resources at the cluster-level using Kubernetes <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">ClusterRoles and ClusterRoleBindings</a>. The next section will demonstrate how to do this.</p>
+<p>Once the CI checks have passed move on to the next section.</p>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="kustomize.html" class="query-params-link">Using Kustomize for Templating YAML</a></span>
-  <span class="next"><a href="granting-service-account-permission.html" class="query-params-link">Argo CD Service Account Permissions</a></span>
+  <span class="prev"><a href="deploy.html" class="query-params-link">Setup</a></span>
+  <span class="next"><a href="cd.html" class="query-params-link">Continuous Delivery</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

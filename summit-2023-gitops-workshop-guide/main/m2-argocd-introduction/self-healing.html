@@ -157,6 +157,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Five: Continuous Delivery of an Application</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/deploy.html">Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/ci.html">Continuous Integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/cd.html">Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -227,7 +242,7 @@
 </li>
 <li>
 <p>Run the following command to list existing Console Notification resources:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get consolenotification</code></pre>
 </div>
@@ -235,7 +250,7 @@
 </li>
 <li>
 <p>Run the following command to delete the <code>welcome-banner</code> Console Notification:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete consolenotification welcome-banner</code></pre>
 </div>
@@ -260,7 +275,7 @@
 </li>
 <li>
 <p>List existing Console Notification resources again, and pay attention to the <strong>AGE</strong> column:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get consolenotification</code></pre>
 </div>
@@ -314,7 +329,7 @@
 </li>
 <li>
 <p>Return to the Web Terminal and run the following command to delete the ConsoleNotification:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete consolenotification welcome-banner</code></pre>
 </div>

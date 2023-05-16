@@ -157,6 +157,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Five: Continuous Delivery of an Application</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/deploy.html">Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/ci.html">Continuous Integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/cd.html">Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -233,7 +248,7 @@
 </li>
 <li>
 <p>Verify the Argo CD CLI is available by trying to view the installed version of the CLI:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">argocd version</code></pre>
 </div>
@@ -241,7 +256,7 @@
 </li>
 <li>
 <p>Once you&#8217;ve confirmed the <code>argocd</code> binary is available, login to your Argo CD instance as the <code>admin</code> user:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export ARGO_PASSWORD=$(kubectl get secret openshift-gitops-cluster -o json -n openshift-gitops | jq '.data["admin.password"]' -r | base64 --decode)
 
@@ -254,7 +269,7 @@ argocd login openshift-gitops-server.openshift-gitops.svc.cluster.local \
 </li>
 <li>
 <p>List your current Applications using the following command:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">argocd app list</code></pre>
 </div>
@@ -305,7 +320,7 @@ argocd login openshift-gitops-server.openshift-gitops.svc.cluster.local \
 </li>
 <li>
 <p>Return to the Web Terminal where you logged in to your Argo CD cluster as the <code>admin</code> user and run the following command (set <code>GITHUB_URL</code> to your repository&#8217;s URL) to create the new <strong>app-of-apps</strong> Application:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export GITHUB_URL=https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt
 

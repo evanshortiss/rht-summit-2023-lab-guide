@@ -157,6 +157,21 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Module Five: Continuous Delivery of an Application</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/deploy.html">Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/ci.html">Continuous Integration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../m5-ci-cd/cd.html">Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -294,11 +309,11 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Open your copy of the lab GitHub repository, and open the GitHub editor using the period/dot shortcut key.</p>
+<p>Open your copy of the workshop GitHub repository (<a href="https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt" target="_blank" rel="noopener">github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt</a>), and open the GitHub editor using the period/dot shortcut key.</p>
 </li>
 <li>
 <p>Create a file named <em>role.yaml</em> in the <em>managed-namespaces/overlays/project-memes-dev</em> directory, and add the following content to the file:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -322,7 +337,7 @@ subjects:
 </li>
 <li>
 <p>Update <em>managed-namespaces/overlays/project-memes-dev/kustomization.yaml</em> file to reference the new <em>role.yaml</em> file:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">bases:
 - ../../base
