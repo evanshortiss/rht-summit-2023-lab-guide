@@ -45,7 +45,7 @@ image::ex3.argo-dashboard-yaml.png[]
 +
 [IMPORTANT]
 ====
-Failing to use the correct URL in the YAML will cause issues in subsequent sections. Make sure to replace that `REPLACE_ME` text with your GitHub username or organisation!
+Failing to use the correct URL in the YAML will cause issues in subsequent sections. Make sure to replace that `REPLACE_THIS` text with your GitHub username or organisation!
 ====
 . Click **Save**. Did you notice that the form has been updated to match the values that were defined in your YAML?
 . Finally, click the **Create** button.
@@ -73,7 +73,7 @@ image::ex3.console-notification-original.png[]
 Try changing the message in the Console Notification and committing it to your repository on GitHub:
 
 . Visit your copy of the workshop repository at https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt[github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt]
-. Open the _console-customisations/console-notification.welcome-banner.yaml_ file.
+. Open the _https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/console-customisations/console-notification.welcome-banner.yaml[console-customisations/console-notification.welcome-banner.yaml]_ file.
 . Click the edit icon in the top-right corner.
 +
 image:ex2.gh-file-view.png[]
