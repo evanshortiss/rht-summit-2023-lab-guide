@@ -1,6 +1,6 @@
 # Making a Code Change and Triggering the Continuous Integration (CI) Process 
 
-Nice work on getting the application deployed on OpenShift! Now you'll make a change to the application's dev environment configuration, verify it passes CI, merge the change into the `main` branch and watch as Argo CD detects and applies the new change.
+Nice work on getting the application deployed on OpenShift! Now you'll make a change to the application's development environment configuration, verify it passes CI, merge the change into the `main` branch and watch as Argo CD detects and applies the new change.
 
 . Head over to your copy of the random-meme application repository: https://github.com/%USERID%/rht-summit-2023-sample-application[github.com/%USERID%/rht-summit-2023-sample-application].
 . Use the period/dot key as a shortcut to open the GitHub IDE.
