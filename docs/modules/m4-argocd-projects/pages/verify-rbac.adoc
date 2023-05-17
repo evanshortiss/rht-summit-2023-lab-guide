@@ -6,7 +6,7 @@
 
 == Explore your new Applications and Project with Custom RBAC
 
-Before moving on and seeing the effects of the newly synced Application resources, review the https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/argocd-projects/group.developers.yaml[group.developers.yaml] and https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/argocd-projects/group.operations.yaml[group.operations.yaml] files. These are simple Group CRs that define a list of Users that are part of a Group.
+Before moving on and seeing the effects of the newly synced Application resources, review the https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/rbac/groups/group.developers.yaml[group.developers.yaml] and https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/rbac/groups/group.operations.yaml[group.operations.yaml] files. These are simple Group CRs that define a list of Users that are part of a Group.
 
 [NOTE]
 ====
