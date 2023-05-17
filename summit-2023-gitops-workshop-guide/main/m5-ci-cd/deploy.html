@@ -219,13 +219,13 @@
 <p>👨‍💻 <em>Role: Developer</em></p>
 </div>
 <div class="paragraph">
-<p>The moment of truth! Time to stretch your developer legs as the <code>foo</code> user, and have Argo CD continuously deploy an application of yours into the development environment that was setup in prior sections.</p>
+<p>In this section you&#8217;re no longer acting as a cluster administrator, but are instead playing the role of a developer. Time to stretch your developer legs as the <code>foo</code> user, and have Argo CD continuously deploy an application of yours into the development environment that was setup in prior sections.</p>
 </div>
 <div class="paragraph">
-<p>In this section you&#8217;re no longer acting as a cluster administrator, but are instead acting playing the role of the <code>foo</code> developer that you&#8217;ve been configuring access for up to this point.</p>
+<p>The application you&#8217;ll be using can be found at <a href="https://github.com/evanshortiss/rht-summit-2023-sample-application">github.com/evanshortiss/rht-summit-2023-sample-application</a>. This repository contains a simple web application that renders a web page containing a randomly chosen meme. The repository also contains a set of resources in the <em>k8s/</em> directory that will be used to deploy the application on OpenShift. You&#8217;re going to deploy this application into the <code>project-memes-dev</code> namespace, then make an update to the application Git repository that runs a CI pipeline, and observe how Argo CD detects the new changes and automatically deploys them to complete the CI/CD flow.</p>
 </div>
 <div class="paragraph">
-<p>For this section of the workshop you&#8217;ll be using <a href="https://github.com/evanshortiss/rht-summit-2023-sample-application">this repository on GitHub</a>. The linked repository contains a simple web application that renders a web page containing a randomly chosen meme. The repository also contains a set of resources in the <em>k8s/</em> directory that will be used to deploy the application on OpenShift. You&#8217;re going to deploy this application into the <code>project-memes-dev</code> namespace, then make an update to the application Git repository that runs a CI pipeline, and observe how Argo CD detects the new changes and automatically deploys them to complete the CI/CD flow.</p>
+<p><span class="image"><img src="_images/ex8.architecture.png" alt="ex8.architecture"></span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -235,7 +235,7 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Separating the OpenShift/Kubernetes resources and source code for an application into separate repositories is a common approach. To reduce the number of repositories you need to manage this workshop has placed both the source code and OpenShift/Kubernetes resources in this one repository.</p>
+<p>Separating the OpenShift/Kubernetes resources and source code for an application into separate repositories is a common approach. To reduce the number of repositories you need to manage this workshop has placed both the source code and OpenShift/Kubernetes resources together in a single repository.</p>
 </div>
 </td>
 </tr>
