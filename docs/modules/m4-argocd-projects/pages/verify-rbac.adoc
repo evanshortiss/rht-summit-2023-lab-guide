@@ -33,7 +33,7 @@ Next, take a look at the *argo-projects* Application:
 +
 image::ex7.argocd-project-yaml.png[]
 
-This file is synchronised from the _https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt/blob/main/argocd-projects/app-project.memes.yaml[argocd-projects/app-project.memes.yaml]_ in your Git repository - it's important and contains various comments explaining what it does! The main thing to take away is that it:
+This file is synchronised from the _https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/argocd-projects/app-project.memes.yaml[argocd-projects/app-project.memes.yaml]_ in your Git repository - it's important and contains various comments explaining what it does! The main thing to take away is that it:
 
 * Creates an https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#projects[AppProject].
 * Supports multiple `destinations` (target clusters), though there's only one defined in this example; the local cluster into which it has been applied.

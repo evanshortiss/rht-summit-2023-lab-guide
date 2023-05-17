@@ -49,7 +49,7 @@ The result displayed by the `argocd app list` should contain your *console-custo
 
 == Creating the App of Apps
 
-Time to deploy the App of Apps. You can find the manifests for the App of Apps in the _apps/_ folder of *your copy* of the https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt[workshop repository]. Take a look inside the _apps/_ folder; you'll see that it's a https://helm.sh/[Helm chart]. Don't worry if you're not familiar with Helm charts, it's basically a system for building fully formed YAML from a set of templates and variables/values:
+Time to deploy the App of Apps. You can find the manifests for the App of Apps in the _apps/_ folder of https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt[your copy of the workshop repository]. Take a look inside the _apps/_ folder; you'll see that it's a https://helm.sh/[Helm chart]. Don't worry if you're not familiar with Helm charts, it's basically a system for building fully formed YAML from a set of templates and variables/values:
 
 . _values.yaml_ - contains a set of variables. If these look familiar it's because they are - they're values that are required by the Argo CD Application CR.
 . _Chart.yaml_ - simply contains some metadata about this Helm chart.
@@ -57,7 +57,7 @@ Time to deploy the App of Apps. You can find the manifests for the App of Apps i
 
 Argo CD supports Helm charts, so you can use it to create the App of Apps from this Helm chart:
 
-. Open *your copy* of the https://github.com/evanshortiss/rht-summit-2023-gitops-cluster-mgmt[workshop repository].
+. Open *your copy* of the https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt[workshop repository].
 . Press the dot/period key to open the GitHub editor.
 . Change the `repoURL` in _apps/templates/values.yaml_ to point to your copy.
 . Use the *Source Control* tab to commit and push the change.

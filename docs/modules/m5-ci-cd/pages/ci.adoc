@@ -30,7 +30,7 @@ This new branch can be used to create a pull request. Creating the pull request 
 It's common to use a https://trunkbaseddevelopment.com/[trunk-based development model] with Argo CD. That's why your pull request will target the `main` branch, and not a `development` or `staging` branch. The _k8s/overlays_ directory contains a unique configuration for each environment. Since the application is containerised, each of the _k8s/overlays_ (i.e environments) can be updated to point to a specific container image tag. This alleviates the need to have branches with varying configurations that result in tedious Git merges at a later point in time.
 ====
 
-. Return to *your copy* of the https://github.com/evanshortiss/rht-summit-2023-sample-application[random-meme application repository].
+. Return to https://github.com/%USERID%/rht-summit-2023-sample-application[your copy random-meme application repository].
 . It should display a message that your `new-meme` branch had changes, and it suggests opening a pull request.
 +
 image:ex8.gh-pr-notice.png[]
