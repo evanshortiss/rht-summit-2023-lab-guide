@@ -16,11 +16,13 @@ By the end of this workshop you will know how to:
 
 == What is OpenShift?
 
-https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift] brings together tested and trusted services to reduce the friction of developing, modernizing, deploying, running, and managing applications. Built on Kubernetes, it delivers a consistent experience across public cloud, on-premise, hybrid cloud, or edge architecture.
+https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift], the industry's leading hybrid cloud application platform powered by Kubernetes, brings together tested and trusted services to reduce the friction of developing, modernizing, deploying, running, and managing applications. OpenShift delivers a consistent experience across public cloud, on-premise, hybrid cloud, or edge architecture.
 
 == What is GitOps
 
 https://www.redhat.com/en/topics/devops/what-is-gitops[GitOps] is a declarative way to implement continuous deployment for cloud native applications. You can use GitOps to create repeatable processes for managing OpenShift clusters and applications across multi-cluster Kubernetes environments. GitOps handles and automates complex deployments at a fast pace, saving time during deployment and release cycles.
+
+image:ex1.openshift-gitops-graphic.png[]
 
 == What is Red OpenShift GitOps
 // From https://docs.openshift.com/container-platform/4.12/cicd/gitops/understanding-openshift-gitops.html
