@@ -28,7 +28,7 @@ Next, take a look at the *argo-projects* Application:
 
 . Login to the Argo CD dashboard as the `admin` user.
 . Select the *argo-projects* application.
-. Click the *application-dev* resource in the tree view. An overlay will appear.
+. Click the *project-memes* resource in the tree view. An overlay will appear.
 . Select the *Desired Manifest* tab in the overlay.
 +
 image::ex7.argocd-project-yaml.png[]
