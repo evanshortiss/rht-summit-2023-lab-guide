@@ -39,7 +39,7 @@ This file is synchronised from the _https://github.com/%USERID%/rht-summit-2023-
 * Supports multiple `destinations` (target clusters), though there's only one defined in this example; the local cluster into which it has been applied.
 * Limits the target Namespaces to `project-memes-dev` and `project-memes-prod`, and *does not* whitelist any cluster-scoped resources. This is important; we want to restrict this project to managing only resources in a the defined Namespaces and not at the cluster-level!
 * Defines two roles: `memes-development` and `memes-operations`. Users in the `application-dev` and `application-ops` Groups created previously are associated with these, respectively.
-* Defines independent RBAC policies for the `foo-development` and `foo-operations` roles.
+* Defines independent RBAC policies for the `memes-development` and `memes-operations` roles.
 
 Now that the *rbac* and *argo-projects* Application resources are synchronised, verify they had the desired effect.
 
