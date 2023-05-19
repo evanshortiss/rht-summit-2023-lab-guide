@@ -6,7 +6,7 @@
 
 https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/[Namespaces] can be used to provide isolation, and divide resources between different teams within a Kubernetes cluster. For example, two teams could each be given a Namespace within a cluster to deploy their applications. Each Namespace can have a set amount of CPU and memory allocated to it depending on the requirements of the software each team is building and deploying. The members of each team might only have access to their own Namespace and no additional namespaces.
 
-In this section, you'll create two Namespaces based on a shared template. Of course you'll want each Namespace to have a unique name, and custom https://kubernetes.io/docs/concepts/policy/resource-quotas/[ResourceQuotas] and https://kubernetes.io/docs/concepts/policy/limit-range/[LimitRanges] depending on the workloads being deployed within them. You'll learn how to extend and patch YAML files using https://kustomize.io/[Kustomise]. Argo CD supports both Kustomize and Helm for scenarios where templating YAML is necessary.
+In this section, you'll create two Namespaces based on a shared template. Of course you'll want each Namespace to have a unique name, and custom https://kubernetes.io/docs/concepts/policy/resource-quotas/[ResourceQuotas] and https://kubernetes.io/docs/concepts/policy/limit-range/[LimitRanges] depending on the workloads being deployed within them. You'll learn how to extend and patch YAML files using https://kustomize.io/[Kustomize]. Argo CD supports both Kustomize and Helm for scenarios where templating YAML is necessary.
 
 image::ex4.argo-kustomize-example.png[]
 
