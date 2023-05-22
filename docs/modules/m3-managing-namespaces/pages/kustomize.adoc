@@ -87,7 +87,7 @@ bases:
 . The end result will be a new _managed-namespaces/overlays/project-memes-prod/kustomization.yaml_ file, and the existing _managed-namespaces/overlays/kustomize.yaml_ is updated to reference the new _project-memes-prod/_ folder as shown:
 +
 image::ex4.github-ide-namespace-files.png[]
-. Edit the `spec.source.repoURL` in _etc/managed-namesapces.application.yaml_ to point to your copy's URL.
+. Edit the `spec.source.repoURL` in _etc/managed-namespaces.application.yaml_ to point to your copy's URL.
 +
 image::ex4.github-ide-application-cr.png[]
 . Use the *Source Control* section of the GitHub editor to enter a commit message, then press *Commit & Push*.
