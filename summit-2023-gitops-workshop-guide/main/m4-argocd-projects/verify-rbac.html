@@ -279,7 +279,7 @@
 <p>Select the <strong>argo-projects</strong> application.</p>
 </li>
 <li>
-<p>Click the <strong>application-dev</strong> resource in the tree view. An overlay will appear.</p>
+<p>Click the <strong>project-memes</strong> resource in the tree view. An overlay will appear.</p>
 </li>
 <li>
 <p>Select the <strong>Desired Manifest</strong> tab in the overlay.</p>
@@ -306,10 +306,10 @@
 <p>Limits the target Namespaces to <code>project-memes-dev</code> and <code>project-memes-prod</code>, and <strong>does not</strong> whitelist any cluster-scoped resources. This is important; we want to restrict this project to managing only resources in a the defined Namespaces and not at the cluster-level!</p>
 </li>
 <li>
-<p>Defines two roles: <code>foo-development</code> and <code>foo-operations</code>. Users in the <code>application-dev</code> and <code>application-ops</code> Groups created previously are associated with these, respectively.</p>
+<p>Defines two roles: <code>memes-development</code> and <code>memes-operations</code>. Users in the <code>application-dev</code> and <code>application-ops</code> Groups created previously are associated with these, respectively.</p>
 </li>
 <li>
-<p>Defines independent RBAC policies for the <code>foo-development</code> and <code>foo-operations</code> roles.</p>
+<p>Defines independent RBAC policies for the <code>memes-development</code> and <code>memes-operations</code> roles.</p>
 </li>
 </ul>
 </div>
