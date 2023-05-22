@@ -28,7 +28,7 @@ Next, take a look at the *argo-projects* Application:
 
 . Login to the Argo CD dashboard as the `admin` user.
 . Select the *argo-projects* application.
-. Click the *application-dev* resource in the tree view. An overlay will appear.
+. Click the *project-memes* resource in the tree view. An overlay will appear.
 . Select the *Desired Manifest* tab in the overlay.
 +
 image::ex7.argocd-project-yaml.png[]
@@ -38,8 +38,8 @@ This file is synchronised from the _https://github.com/%USERID%/rht-summit-2023-
 * Creates an https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#projects[AppProject].
 * Supports multiple `destinations` (target clusters), though there's only one defined in this example; the local cluster into which it has been applied.
 * Limits the target Namespaces to `project-memes-dev` and `project-memes-prod`, and *does not* whitelist any cluster-scoped resources. This is important; we want to restrict this project to managing only resources in a the defined Namespaces and not at the cluster-level!
-* Defines two roles: `foo-development` and `foo-operations`. Users in the `application-dev` and `application-ops` Groups created previously are associated with these, respectively.
-* Defines independent RBAC policies for the `foo-development` and `foo-operations` roles.
+* Defines two roles: `memes-development` and `memes-operations`. Users in the `application-dev` and `application-ops` Groups created previously are associated with these, respectively.
+* Defines independent RBAC policies for the `memes-development` and `memes-operations` roles.
 
 Now that the *rbac* and *argo-projects* Application resources are synchronised, verify they had the desired effect.
 
