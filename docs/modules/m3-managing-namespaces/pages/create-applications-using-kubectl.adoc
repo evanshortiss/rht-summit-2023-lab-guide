@@ -15,6 +15,7 @@ Are you wondering why we use the CLI instead of the UI this time? It's because i
 . Open the Web Terminal using the **>_** icon in the top-right corner of the OpenShift Web Console.
 . Execute the following commands to create your Argo CD Application that will create and manage your Namespace.
 +
+[.console-input]
 [source,bash]
 ----
 export GITHUB_USERNAME=%USERID%
