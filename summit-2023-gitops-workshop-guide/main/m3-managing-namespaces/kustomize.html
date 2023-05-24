@@ -219,7 +219,7 @@
 <p>👨‍💻 <em>Role: Cluster Administrator</em></p>
 </div>
 <div class="paragraph">
-<p><a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/">Namespaces</a> can be used to provide isolation, and divide resources between different teams within a Kubernetes cluster. For example, two teams could each be given a Namespace within a cluster to deploy their applications. Each Namespace can have a set amount of CPU and memory allocated to it depending on the requirements of the software each team is building and deploying. The members of each team might only have access to their own Namespace and no additional namespaces.</p>
+<p>Now that you&#8217;ve got the basics figured out, you can start managing some Namespaces. <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/">Namespaces</a> can be used to provide isolation, and divide resources between different teams within a Kubernetes cluster. For example, two teams could each be given a Namespace within a cluster to deploy their applications. Each Namespace can have a set amount of CPU and memory allocated to it depending on the requirements of the software each team is building and deploying. The members of each team might only have access to their own Namespace and no additional namespaces.</p>
 </div>
 <div class="paragraph">
 <p>In this section, you&#8217;ll create two Namespaces based on a shared template. Of course you&#8217;ll want each Namespace to have a unique name, and custom <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/">ResourceQuotas</a> and <a href="https://kubernetes.io/docs/concepts/policy/limit-range/">LimitRanges</a> depending on the workloads being deployed within them. You&#8217;ll learn how to extend and patch YAML files using <a href="https://kustomize.io/">Kustomize</a>. Argo CD supports both Kustomize and Helm for scenarios where templating YAML is necessary.</p>
@@ -358,7 +358,7 @@ patches:
 </div>
 </li>
 <li>
-<p>Edit the <code>spec.source.repoURL</code> in <em>etc/managed-namespaces.application.yaml</em> to point to your copy&#8217;s URL.</p>
+<p>Edit the <code>spec.source.repoURL</code> in <em>etc/managed-namespaces.application.yaml</em> to point to your repository&#8217;s URL.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/ex4.github-ide-application-cr.png" alt="ex4.github ide application cr">
