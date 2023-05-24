@@ -51,7 +51,7 @@ You'll be using your own OpenShift cluster throughout this workshop. Your cluste
 
 To retrieve your cluster's information:
 
-. Visit the unique work URL provided by the workshop administrator(s).
+. Visit the https://summit.demo.redhat.com[summit.demo.redhat.com].
 . Enter your email address and the password provided by the workshop administrator(s).
 +
 [IMPORTANT]
@@ -63,7 +63,7 @@ image:ex1.demo-redhat-login.png[]
 . Click the *Access this workshop* button.
 . Your unique environment details will be displayed.
 
-The *OpenShift Console* and user marked a *cluster admin* are the two pieces of information you'll need to access your cluster.
+The console URL and user marked a *Admin* are the two pieces of information from the *OpenShift Console Access* section that you need to access your cluster.
 
 image:ex1-demo-redhat-cluster-deets.png[]
 
@@ -72,7 +72,7 @@ To access your OpenShift cluster's *Web Console*:
 . Visit the cluster URL in a web browser, and select the *htpasswd_provider* login option when prompted.
 +
 image:ex1.openshift-login-screen.png[]
-. Login to your OpenShift cluster using the username and password provided by https://demo.redhat.com[demo.redhat.com].
+. Login to your OpenShift cluster using the *Admin* username and password provided by https://summit.demo.redhat.com[summit.demo.redhat.com].
 
 The **Overview** page of the OpenShift Web Console is displayed after a successful login. From here you can perform both administrative and developer-focused tasks. 
 

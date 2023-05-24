@@ -37,7 +37,7 @@ base64 --decode | xargs echo
 
 image::ex2.openshift-terminal-argo-secret.png[]
 
-You can view the `admin` user's password using the OpenShift Web Console instead of the Web Terminal by:
+Alternatively, you can view the `admin` user's password using the OpenShift Web Console instead of the Web Terminal by:
 
 . Selecting the **Administrator** perspective from the top of the side-menu.
 . Expanding the *Workloads* section and selecting *Secrets* in the side-menu.
