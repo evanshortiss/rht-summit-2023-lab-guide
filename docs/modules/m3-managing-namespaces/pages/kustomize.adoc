@@ -33,7 +33,7 @@ These files are referred to as *bases* or the *base* files to be used by Kustomi
 
 A Namespace is already defined in the _https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/blob/main/managed-namespaces/overlays/project-memes-dev[managed-namespaces/overlays/project-memes-dev, window=_blank]_ folder. You'll use this as a template to make a second Namespace:
 
-. Navigate to your copy of the GitHub repository.
+. Navigate to https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt/[the homepage, window=_blank] your copy of the GitHub repository.
 . Press the period/dot key to open GitHub's web-based editor.
 . Create a *folder* named `project-memes-prod` inside the _managed-namespaces/overlays/_ folder. This folder will contain your Namespace configuration.
 . Create a *file* named `kustomization.yaml` inside your _managed-namespaces/overlays/project-memes-prod_ folder.

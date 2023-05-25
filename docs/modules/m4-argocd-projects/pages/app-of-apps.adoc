@@ -60,6 +60,8 @@ Argo CD supports Helm charts, so you can use it to create the App of Apps from t
 . Open *your copy* of the https://github.com/%USERID%/rht-summit-2023-gitops-cluster-mgmt[workshop repository].
 . Press the dot/period key to open the GitHub editor.
 . Change the `repoURL` in _apps/values.yaml_ to point to your repository's URL.
++
+image::ex7.gh-values-yaml.png[]
 . Use the *Source Control* tab to commit and push the change.
 . Return to the Web Terminal where you logged in to your Argo CD cluster as the `admin` user and run the following command (set `GITHUB_URL` to your repository's URL) to create the new *app-of-apps* Application:
 +
