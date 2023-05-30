@@ -1,4 +1,6 @@
-# Summit 2023 - GitOps Workshop Guide
+# (Archived) Summit 2023 - GitOps Workshop Guide
+
+Please use the new copy of this repository at: https://github.com/redhat-scholars/summit-2023-gitops-lab-guide
 
 ## Local development
 
